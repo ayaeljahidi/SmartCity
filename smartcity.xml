@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="dashboard.xsl"?>
+
+<smartCity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="smartcity.xsd"
+           name="NeoCity 2.0" 
+           date="2026-01-16"
+           version="2.0"
+           population="850000">
+  
+  <cityInfo>
+    <mayor>Dr. Elena Rodriguez</mayor>
+    <emergencyNumber>112</emergencyNumber>
+    <website>https://neocity.gov</website>
+    <timezone>UTC+1</timezone>
+    <status>Operational</status>
+  </cityInfo>
+  
+  <users>
+    <user id="U1" role="Admin" department="CityManagement">
+      <name>City Admin</name>
+      <email>admin@neocity.gov</email>
+      <lastLogin>2026-01-16T08:30:00</lastLogin>
+      <permissions>full</permissions>
+    </user>
+    <user id="U2" role="SecurityOfficer" department="PublicSafety">
+      <name>Security Agent</name>
+      <email>security@neocity.gov</email>
+      <lastLogin>2026-01-16T14:20:00</lastLogin>
+      <permissions>monitor,alert,respond</permissions>
+    </user>
+    <user id="U3" role="CityManager" department="Infrastructure">
+      <name>Infrastructure Manager</name>
+      <email>infra@neocity.gov</email>
+      <lastLogin>2026-01-16T09:15:00</lastLogin>
+      <permissions>monitor,analyze</permissions>
+    </user>
+    <user id="U4" role="EnvironmentalOfficer" department="Environment">
+      <name>Environmental Monitor</name>
+      <email>env@neocity.gov</email>
+      <lastLogin>2026-01-16T10:45:00</lastLogin>
+      <permissions>monitor,report</permissions>
+    </user>
+  </users>
+  
+  <infrastructure>
+    <traffic>
+      <intersection id="T001" zone="Downtown">
+        <congestionLevel>Medium</congestionLevel>
+        <avgSpeed>25</avgSpeed>
+        <lastUpdate>2026-01-16T16:45:00</lastUpdate>
+      </intersection>
+      <intersection id="T002" zone="Industrial">
+        <congestionLevel>Low</congestionLevel>
+        <avgSpeed>45</avgSpeed>
+        <lastUpdate>2026-01-16T16:43:00</lastUpdate>
+      </intersection>
+    </traffic>
+    
+    <publicTransport>
+      <metroLine id="M1" status="Operational">
+        <delayMinutes>2</delayMinutes>
+        <passengerCount>320</passengerCount>
+      </metroLine>
+      <busLine id="B42" status="Delayed">
+        <delayMinutes>8</delayMinutes>
+        <passengerCount>65</passengerCount>
+      </busLine>
+    </publicTransport>
+    
+    <energy>
+      <powerPlant id="PP1" type="Renewable" outputMW="150">
+        <co2Level>Low</co2Level>
+        <efficiency>92</efficiency>
+      </powerPlant>
+      <smartGrid status="Stable" loadPercentage="78"/>
+    </energy>
+  </infrastructure>
+  
+  <security>
+    <incident id="I01" severity="High" status="Active" type="SecurityBreach">
+      <zone>Downtown</zone>
+      <location>Central Tower</location>
+      <coordinates>40.7128,-74.0060</coordinates>
+      <time>2026-01-16T22:30:00</time>
+      <description>Unauthorized access detected in server room</description>
+      <assignedTo>U2</assignedTo>
+      <responseUnits>
+        <unit>Police-Unit-A</unit>
+        <unit>CyberSecurity-Team</unit>
+      </responseUnits>
+    </incident>
+    
+    <incident id="I02" severity="Medium" status="Resolved" type="TrafficAccident">
+      <zone>Downtown</zone>
+      <location>Main Street &amp; 5th Ave</location>
+      <coordinates>40.7142,-74.0059</coordinates>
+      <time>2026-01-16T18:10:00</time>
+      <description>Two-vehicle collision, minor injuries</description>
+      <assignedTo>U2</assignedTo>
+      <responseTime>8</responseTime>
+    </incident>
+    
+    <incident id="I03" severity="High" status="Investigating" type="Fire">
+      <zone>Industrial</zone>
+      <location>Warehouse District B</location>
+      <coordinates>40.7150,-74.0080</coordinates>
+      <time>2026-01-16T01:40:00</time>
+      <description>Electrical fire reported</description>
+      <assignedTo>U2</assignedTo>
+      <responseUnits>
+        <unit>Fire-Dept-3</unit>
+        <unit>EMS-Unit-2</unit>
+      </responseUnits>
+    </incident>
+    
+    <incident id="I04" severity="Low" status="Resolved" type="Vandalism">
+      <zone>Residential</zone>
+      <location>Green Park</location>
+      <coordinates>40.7135,-74.0072</coordinates>
+      <time>2026-01-16T14:20:00</time>
+      <description>Graffiti on public property</description>
+      <assignedTo>U2</assignedTo>
+    </incident>
+    
+    <surveillance>
+      <camera id="CAM001" zone="Downtown" status="Active">
+        <lastMotion>2026-01-16T16:50:00</lastMotion>
+        <aiDetection>Person</aiDetection>
+      </camera>
+      <camera id="CAM042" zone="Industrial" status="Maintenance">
+        <lastMotion>2026-01-15T23:30:00</lastMotion>
+        <aiDetection>Vehicle</aiDetection>
+      </camera>
+    </surveillance>
+  </security>
+  
+  <environment>
+    <airQuality>
+      <sensor id="AQ1" zone="Industrial">
+        <pm25>65</pm25>
+        <pm10>85</pm10>
+        <o3>45</o3>
+        <no2>30</no2>
+        <qualityIndex>Bad</qualityIndex>
+        <healthAdvice>Limit outdoor activities</healthAdvice>
+        <timestamp>2026-01-16T16:55:00</timestamp>
+      </sensor>
+      
+      <sensor id="AQ2" zone="Downtown">
+        <pm25>35</pm25>
+        <pm10>45</pm10>
+        <o3>25</o3>
+        <no2>18</no2>
+        <qualityIndex>Moderate</qualityIndex>
+        <healthAdvice>Normal activities</healthAdvice>
+        <timestamp>2026-01-16T16:53:00</timestamp>
+      </sensor>
+      
+      <sensor id="AQ3" zone="Residential">
+        <pm25>15</pm25>
+        <pm10>22</pm10>
+        <o3>12</o3>
+        <no2>8</no2>
+        <qualityIndex>Good</qualityIndex>
+        <healthAdvice>Ideal conditions</healthAdvice>
+        <timestamp>2026-01-16T16:52:00</timestamp>
+      </sensor>
+    </airQuality>
+    
+    <weather>
+      <current>
+        <temperature>18</temperature>
+        <humidity>65</humidity>
+        <condition>Partly Cloudy</condition>
+        <windSpeed>12</windSpeed>
+        <windDirection>NW</windDirection>
+        <timestamp>2026-01-16T16:50:00</timestamp>
+      </current>
+      <forecast period="Tomorrow">
+        <high>20</high>
+        <low>12</low>
+        <condition>Sunny</condition>
+      </forecast>
+    </weather>
+    
+    <wasteManagement>
+      <smartBin id="BIN001" zone="Downtown" fillLevel="85">
+        <lastCollected>2026-01-15T08:00:00</lastCollected>
+        <nextCollection>2026-01-16T18:00:00</nextCollection>
+      </smartBin>
+      <recyclingRate>68</recyclingRate>
+    </wasteManagement>
+  </environment>
+  
+  <services>
+    <hospital id="H1" zone="Downtown" bedsAvailable="45" waitingTime="15">
+      <specialties>
+        <specialty>Emergency</specialty>
+        <specialty>Cardiology</specialty>
+      </specialties>
+    </hospital>
+    
+    <school id="S1" zone="Residential" status="Open">
+      <studentsPresent>1245</studentsPresent>
+      <airQualityInClassroom>Good</airQualityInClassroom>
+    </school>
+    
+    <publicWiFi accessPoints="350" uptime="99.8">
+      <activeConnections>2850</activeConnections>
+    </publicWiFi>
+  </services>
+  
+  <iotDevices total="12500" connected="12420">
+    <device type="SmartLight" count="4500"/>
+    <device type="TrafficSensor" count="1200"/>
+    <device type="EnvironmentalSensor" count="800"/>
+    <device type="SecurityCamera" count="600"/>
+    <device type="SmartMeter" count="5400"/>
+  </iotDevices>
+  
+  <analytics>
+    <cityHealth score="82" trend="Improving"/>
+    <safetyIndex score="78"/>
+    <sustainabilityIndex score="85"/>
+    <citizenSatisfaction score="79"/>
+  </analytics>
+  
+</smartCity>

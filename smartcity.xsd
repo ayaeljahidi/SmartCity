@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <!-- Root element -->
+  <xs:element name="smartCity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="cityInfo" type="cityInfoType" minOccurs="0"/>
+        <xs:element name="users" type="usersType"/>
+        <xs:element name="infrastructure" type="infrastructureType" minOccurs="0"/>
+        <xs:element name="security" type="securityType"/>
+        <xs:element name="environment" type="environmentType"/>
+        <xs:element name="services" type="servicesType" minOccurs="0"/>
+        <xs:element name="iotDevices" type="iotDevicesType" minOccurs="0"/>
+        <xs:element name="analytics" type="analyticsType" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="date" type="xs:date" use="required"/>
+      <xs:attribute name="version" type="xs:string" use="required"/>
+      <xs:attribute name="population" type="xs:positiveInteger"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- City Info Type -->
+  <xs:complexType name="cityInfoType">
+    <xs:sequence>
+      <xs:element name="mayor" type="xs:string"/>
+      <xs:element name="emergencyNumber" type="xs:string"/>
+      <xs:element name="website" type="xs:anyURI"/>
+      <xs:element name="timezone" type="xs:string"/>
+      <xs:element name="status">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Operational"/>
+            <xs:enumeration value="Maintenance"/>
+            <xs:enumeration value="Emergency"/>
+            <xs:enumeration value="Testing"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Users Type -->
+  <xs:complexType name="usersType">
+    <xs:sequence>
+      <xs:element name="user" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="lastLogin" type="xs:dateTime"/>
+            <xs:element name="permissions" type="permissionsType"/>
+          </xs:sequence>
+          <xs:attribute name="id" type="xs:ID" use="required"/>
+          <xs:attribute name="role" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Admin"/>
+                <xs:enumeration value="SecurityOfficer"/>
+                <xs:enumeration value="CityManager"/>
+                <xs:enumeration value="EnvironmentalOfficer"/>
+                <xs:enumeration value="TrafficController"/>
+                <xs:enumeration value="Citizen"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="department" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Permissions Type -->
+  <xs:simpleType name="permissionsType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([a-zA-Z]+)(,[a-zA-Z]+)*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Security Type -->
+  <xs:complexType name="securityType">
+    <xs:sequence>
+      <xs:element name="incident" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="zone" type="zoneType"/>
+            <xs:element name="location" type="xs:string"/>
+            <xs:element name="coordinates" type="coordinatesType"/>
+            <xs:element name="time" type="xs:dateTime"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="assignedTo" type="xs:IDREF"/>
+            <xs:element name="responseUnits" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="unit" type="xs:string" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="responseTime" type="xs:positiveInteger" minOccurs="0"/>
+          </xs:sequence>
+          <xs:attribute name="id" type="xs:ID" use="required"/>
+          <xs:attribute name="severity" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Low"/>
+                <xs:enumeration value="Medium"/>
+                <xs:enumeration value="High"/>
+                <xs:enumeration value="Critical"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="status" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Reported"/>
+                <xs:enumeration value="Investigating"/>
+                <xs:enumeration value="Active"/>
+                <xs:enumeration value="Resolved"/>
+                <xs:enumeration value="Closed"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="type" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="SecurityBreach"/>
+                <xs:enumeration value="TrafficAccident"/>
+                <xs:enumeration value="Fire"/>
+                <xs:enumeration value="Medical"/>
+                <xs:enumeration value="Vandalism"/>
+                <xs:enumeration value="CyberAttack"/>
+                <xs:enumeration value="NaturalDisaster"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="surveillance" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="camera" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="lastMotion" type="xs:dateTime"/>
+                  <xs:element name="aiDetection" type="xs:string"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" use="required"/>
+                <xs:attribute name="zone" type="zoneType" use="required"/>
+                <xs:attribute name="status" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="Active"/>
+                      <xs:enumeration value="Inactive"/>
+                      <xs:enumeration value="Maintenance"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Zone Type -->
+  <xs:simpleType name="zoneType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Downtown"/>
+      <xs:enumeration value="Industrial"/>
+      <xs:enumeration value="Residential"/>
+      <xs:enumeration value="Commercial"/>
+      <xs:enumeration value="Suburban"/>
+      <xs:enumeration value="Rural"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Coordinates Type -->
+  <xs:simpleType name="coordinatesType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?\d+\.\d+,-?\d+\.\d+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Infrastructure Type -->
+  <xs:complexType name="infrastructureType">
+    <xs:sequence>
+      <xs:element name="traffic" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="intersection" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="congestionLevel">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="Low"/>
+                        <xs:enumeration value="Medium"/>
+                        <xs:enumeration value="High"/>
+                        <xs:enumeration value="Severe"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="avgSpeed" type="xs:positiveInteger"/>
+                  <xs:element name="lastUpdate" type="xs:dateTime"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" use="required"/>
+                <xs:attribute name="zone" type="zoneType" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="publicTransport" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="metroLine" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="delayMinutes" type="xs:nonNegativeInteger"/>
+                  <xs:element name="passengerCount" type="xs:positiveInteger"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" use="required"/>
+                <xs:attribute name="status" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="Operational"/>
+                      <xs:enumeration value="Delayed"/>
+                      <xs:enumeration value="Maintenance"/>
+                      <xs:enumeration value="Suspended"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="busLine" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="delayMinutes" type="xs:nonNegativeInteger"/>
+                  <xs:element name="passengerCount" type="xs:positiveInteger"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" use="required"/>
+                <xs:attribute name="status" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="Operational"/>
+                      <xs:enumeration value="Delayed"/>
+                      <xs:enumeration value="Maintenance"/>
+                      <xs:enumeration value="Suspended"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="energy" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="powerPlant" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="co2Level">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="Very Low"/>
+                        <xs:enumeration value="Low"/>
+                        <xs:enumeration value="Medium"/>
+                        <xs:enumeration value="High"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="efficiency" type="xs:decimal"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" use="required"/>
+                <xs:attribute name="type" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="Renewable"/>
+                      <xs:enumeration value="Nuclear"/>
+                      <xs:enumeration value="Fossil"/>
+                      <xs:enumeration value="Hydro"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="outputMW" type="xs:decimal" use="required"/>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="smartGrid">
+              <xs:complexType>
+                <xs:attribute name="status" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="Stable"/>
+                      <xs:enumeration value="Under Stress"/>
+                      <xs:enumeration value="Critical"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="loadPercentage" type="xs:decimal" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Environment Type -->
+  <xs:complexType name="environmentType">
+    <xs:sequence>
+      <xs:element name="airQuality">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="sensor" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="pm25" type="xs:decimal"/>
+                  <xs:element name="pm10" type="xs:decimal"/>
+                  <xs:element name="o3" type="xs:decimal"/>
+                  <xs:element name="no2" type="xs:decimal"/>
+                  <xs:element name="qualityIndex">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="Excellent"/>
+                        <xs:enumeration value="Good"/>
+                        <xs:enumeration value="Moderate"/>
+                        <xs:enumeration value="Poor"/>
+                        <xs:enumeration value="Bad"/>
+                        <xs:enumeration value="Hazardous"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="healthAdvice" type="xs:string"/>
+                  <xs:element name="timestamp" type="xs:dateTime"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" use="required"/>
+                <xs:attribute name="zone" type="zoneType" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="weather">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="current">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="temperature" type="xs:integer"/>
+                  <xs:element name="humidity" type="xs:decimal"/>
+                  <xs:element name="condition" type="xs:string"/>
+                  <xs:element name="windSpeed" type="xs:decimal"/>
+                  <xs:element name="windDirection" type="xs:string"/>
+                  <xs:element name="timestamp" type="xs:dateTime"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="forecast" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="high" type="xs:integer"/>
+                  <xs:element name="low" type="xs:integer"/>
+                  <xs:element name="condition" type="xs:string"/>
+                </xs:sequence>
+                <xs:attribute name="period" type="xs:string" use="required"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="wasteManagement" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="smartBin" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="lastCollected" type="xs:dateTime"/>
+                  <xs:element name="nextCollection" type="xs:dateTime"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID" use="required"/>
+                <xs:attribute name="zone" type="zoneType" use="required"/>
+                <xs:attribute name="fillLevel" type="xs:decimal" use="required"/>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="recyclingRate" type="xs:decimal"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Services Type -->
+  <xs:complexType name="servicesType">
+    <xs:sequence>
+      <xs:element name="hospital" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="specialties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="specialty" type="xs:string" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="id" type="xs:ID" use="required"/>
+          <xs:attribute name="zone" type="zoneType" use="required"/>
+          <xs:attribute name="bedsAvailable" type="xs:positiveInteger" use="required"/>
+          <xs:attribute name="waitingTime" type="xs:positiveInteger"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="school" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="studentsPresent" type="xs:positiveInteger"/>
+            <xs:element name="airQualityInClassroom" type="xs:string"/>
+          </xs:sequence>
+          <xs:attribute name="id" type="xs:ID" use="required"/>
+          <xs:attribute name="zone" type="zoneType" use="required"/>
+          <xs:attribute name="status" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Open"/>
+                <xs:enumeration value="Closed"/>
+                <xs:enumeration value="Remote"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="publicWiFi">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="activeConnections" type="xs:positiveInteger"/>
+          </xs:sequence>
+          <xs:attribute name="accessPoints" type="xs:positiveInteger" use="required"/>
+          <xs:attribute name="uptime" type="xs:decimal" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- IoT Devices Type -->
+  <xs:complexType name="iotDevicesType">
+    <xs:sequence>
+      <xs:element name="device" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="type" type="xs:string" use="required"/>
+          <xs:attribute name="count" type="xs:positiveInteger" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="total" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="connected" type="xs:positiveInteger" use="required"/>
+  </xs:complexType>
+
+  <!-- Analytics Type -->
+  <xs:complexType name="analyticsType">
+    <xs:sequence>
+      <xs:element name="cityHealth">
+        <xs:complexType>
+          <xs:attribute name="score" type="xs:decimal" use="required"/>
+          <xs:attribute name="trend" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Improving"/>
+                <xs:enumeration value="Stable"/>
+                <xs:enumeration value="Declining"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="safetyIndex">
+        <xs:complexType>
+          <xs:attribute name="score" type="xs:decimal" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="sustainabilityIndex">
+        <xs:complexType>
+          <xs:attribute name="score" type="xs:decimal" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="citizenSatisfaction">
+        <xs:complexType>
+          <xs:attribute name="score" type="xs:decimal" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
