@@ -34,16 +34,17 @@
             --gradient-success: linear-gradient(135deg, #10b981, #059669);
             --gradient-warning: linear-gradient(135deg, #f59e0b, #d97706);
             --gradient-danger: linear-gradient(135deg, #ef4444, #dc2626);
+            --gradient-dark: linear-gradient(135deg, #0f172a, #1e293b);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--darker);
             color: var(--light);
             min-height: 100vh;
@@ -63,16 +64,18 @@
                 radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
             z-index: -1;
-            animation: gradientShift 15s ease infinite;
+            animation: gradientShift 20s ease infinite alternate;
         }
 
         @keyframes gradientShift {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(1deg); }
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(0.5deg); }
+            100% { transform: scale(1) rotate(-0.5deg); }
         }
 
+        /* Dashboard Container */
         .dashboard-container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -82,125 +85,182 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px;
+            padding: 20px 30px;
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px) saturate(180%);
             border-radius: 24px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: var(--glow);
-            animation: slideDown 0.8s ease;
             position: relative;
             overflow: hidden;
+            animation: slideDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .header::after {
+        .header::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            animation: shimmer 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            animation: shimmer 4s infinite linear;
         }
 
         @keyframes shimmer {
-            100% { left: 100%; }
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
         }
 
         .city-info {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
         }
 
         .city-logo {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: var(--gradient-primary);
-            border-radius: 20px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            animation: float 6s ease-in-out infinite;
+            font-size: 2rem;
+            animation: float 8s ease-in-out infinite;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            50% { 
+                transform: translateY(-15px) rotate(5deg); 
+            }
         }
 
         .city-text h1 {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             font-weight: 800;
-            background: linear-gradient(to right, var(--primary-light), var(--accent));
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.5px;
         }
 
+        .city-subtitle {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .city-subtitle::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
         .city-stats {
             display: flex;
-            gap: 30px;
+            gap: 20px;
         }
 
         .stat-badge {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 15px 25px;
-            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-width: 150px;
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            min-width: 120px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
         .stat-badge:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-badge:hover::before {
+            transform: scaleX(1);
         }
 
         .stat-value {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #94a3b8;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 5px;
+            margin-top: 8px;
+            font-weight: 600;
         }
 
         /* Navigation */
         .nav-container {
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .nav-scroll {
             display: flex;
-            gap: 15px;
-            padding: 20px;
+            gap: 10px;
+            padding: 15px;
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
             overflow-x: auto;
             scrollbar-width: none;
         }
@@ -212,17 +272,17 @@
         .nav-btn {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 18px 30px;
+            gap: 10px;
+            padding: 14px 22px;
             background: transparent;
-            border: 2px solid transparent;
-            color: #cbd5e1;
-            border-radius: 16px;
+            border: 1px solid transparent;
+            color: #94a3b8;
+            border-radius: 14px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             position: relative;
             overflow: hidden;
         }
@@ -231,41 +291,42 @@
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s;
-        }
-
-        .nav-btn:hover::before {
-            left: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
             color: white;
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:hover::before {
+            opacity: 1;
         }
 
         .nav-btn.active {
             background: var(--gradient-primary);
             color: white;
             border-color: transparent;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
         }
 
         .nav-btn i {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         /* Main Content */
         .main-content {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 25px;
+            gap: 20px;
             margin-bottom: 40px;
         }
 
@@ -276,23 +337,29 @@
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.98); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
         }
 
         .section.active {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 25px;
+            gap: 20px;
         }
 
         /* Dashboard Cards */
         .dashboard-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -306,89 +373,115 @@
             right: 0;
             height: 4px;
             background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
         }
 
         .dashboard-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             box-shadow: var(--glow);
-            border-color: rgba(99, 102, 241, 0.3);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .dashboard-card:hover::before {
+            transform: scaleX(1);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .card-title {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: white;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .card-title i {
             color: var(--primary-light);
-            font-size: 1.6rem;
+            font-size: 1.3rem;
         }
 
         /* Grid Layouts */
         .overview-grid {
             grid-column: span 12;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .metrics-grid {
             grid-column: span 12;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
             margin-top: 20px;
         }
 
         /* KPI Cards */
         .kpi-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
-            padding: 25px;
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            padding: 20px;
+            border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .kpi-card:hover {
-            border-color: var(--primary);
+            border-color: rgba(99, 102, 241, 0.3);
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
         }
 
         .kpi-value {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 900;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1;
+            margin-bottom: 5px;
         }
 
         .kpi-label {
             color: #94a3b8;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 10px;
+            font-weight: 600;
         }
 
         .kpi-trend {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 15px;
-            font-size: 0.9rem;
+            gap: 6px;
+            margin-top: 10px;
+            font-size: 0.85rem;
         }
 
         .trend-up { color: var(--success); }
@@ -403,89 +496,131 @@
         }
 
         .data-table th {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 16px;
             text-align: left;
             font-weight: 600;
             color: #cbd5e1;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .data-table td {
-            padding: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             color: #e2e8f0;
+            font-size: 0.9rem;
         }
 
         .data-table tr {
-            transition: background-color 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .data-table tr:hover {
             background: rgba(255, 255, 255, 0.02);
+            transform: translateX(4px);
         }
 
         /* Status Badges */
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
             font-weight: 600;
             backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
         }
 
-        .status-high { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
-        .status-high .status-dot { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+        .status-high { 
+            background: rgba(239, 68, 68, 0.15); 
+            color: #fca5a5; 
+            border: 1px solid rgba(239, 68, 68, 0.2); 
+        }
+        .status-high .status-dot { 
+            background: var(--danger); 
+            box-shadow: 0 0 8px var(--danger); 
+        }
         
-        .status-medium { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
-        .status-medium .status-dot { background: var(--warning); box-shadow: 0 0 10px var(--warning); }
+        .status-medium { 
+            background: rgba(245, 158, 11, 0.15); 
+            color: #fcd34d; 
+            border: 1px solid rgba(245, 158, 11, 0.2); 
+        }
+        .status-medium .status-dot { 
+            background: var(--warning); 
+            box-shadow: 0 0 8px var(--warning); 
+        }
         
-        .status-low { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .status-low .status-dot { background: var(--success); box-shadow: 0 0 10px var(--success); }
+        .status-low { 
+            background: rgba(16, 185, 129, 0.15); 
+            color: #6ee7b7; 
+            border: 1px solid rgba(16, 185, 129, 0.2); 
+        }
+        .status-low .status-dot { 
+            background: var(--success); 
+            box-shadow: 0 0 8px var(--success); 
+        }
 
         /* Role Badges */
         .role-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 600;
         }
         
-        .role-admin { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
-        .role-security { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
-        .role-manager { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
-        .role-env { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .role-admin { 
+            background: rgba(139, 92, 246, 0.15); 
+            color: #a78bfa; 
+            border: 1px solid rgba(139, 92, 246, 0.2); 
+        }
+        .role-security { 
+            background: rgba(239, 68, 68, 0.15); 
+            color: #fca5a5; 
+            border: 1px solid rgba(239, 68, 68, 0.2); 
+        }
+        .role-manager { 
+            background: rgba(6, 182, 212, 0.15); 
+            color: #67e8f9; 
+            border: 1px solid rgba(6, 182, 212, 0.2); 
+        }
+        .role-env { 
+            background: rgba(16, 185, 129, 0.15); 
+            color: #6ee7b7; 
+            border: 1px solid rgba(16, 185, 129, 0.2); 
+        }
 
         /* Charts */
         .chart-container {
             position: relative;
-            height: 300px;
+            height: 280px;
             margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         /* Progress Bars */
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             overflow: hidden;
-            margin: 10px 0;
+            margin: 8px 0;
         }
 
         .progress-fill {
@@ -493,84 +628,163 @@
             background: var(--gradient-primary);
             border-radius: 10px;
             transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmerProgress 2s infinite;
+        }
+
+        @keyframes shimmerProgress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         /* User Cards */
         .user-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
             margin-top: 20px;
         }
 
         .user-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
-            border-radius: 20px;
-            padding: 25px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border-radius: 16px;
+            padding: 22px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .user-card:hover {
-            border-color: var(--primary);
+            border-color: rgba(99, 102, 241, 0.3);
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-card:hover::before {
+            opacity: 1;
         }
 
         .user-header {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .user-avatar {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: var(--gradient-primary);
-            border-radius: 50%;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
+            color: white;
+            flex-shrink: 0;
         }
 
         .user-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: white;
         }
 
         .user-role {
-            font-size: 0.85rem;
-            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .user-details {
             display: grid;
-            gap: 10px;
+            gap: 8px;
         }
 
         .user-detail {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .detail-label {
             color: #94a3b8;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .detail-value {
             font-weight: 500;
             color: #e2e8f0;
+            font-size: 0.85rem;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .quick-stat {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .quick-stat:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .quick-stat-label {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .quick-stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
         }
 
         /* Animations */
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.6; }
         }
 
         .pulse {
@@ -586,10 +800,6 @@
             .section.active {
                 grid-template-columns: 1fr;
             }
-            
-            .user-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            }
         }
 
         @media (max-width: 768px) {
@@ -597,6 +807,7 @@
                 flex-direction: column;
                 gap: 20px;
                 text-align: center;
+                padding: 20px;
             }
             
             .city-stats {
@@ -605,26 +816,16 @@
             }
             
             .stat-badge {
-                min-width: 120px;
+                min-width: 110px;
             }
             
             .nav-scroll {
-                padding: 15px;
+                padding: 12px;
             }
             
             .nav-btn {
-                padding: 15px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .user-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .dashboard-container {
-                padding: 10px;
+                padding: 12px 16px;
+                font-size: 0.85rem;
             }
             
             .city-text h1 {
@@ -634,20 +835,38 @@
             .dashboard-card {
                 padding: 20px;
             }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: 15px;
+            }
             
-            .user-card {
-                padding: 20px;
+            .city-text h1 {
+                font-size: 1.7rem;
+            }
+            
+            .stat-value {
+                font-size: 1.7rem;
+            }
+            
+            .kpi-value {
+                font-size: 2rem;
+            }
+            
+            .user-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 10px;
         }
 
@@ -658,6 +877,49 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-dark);
+        }
+
+        /* Loading States */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            100% { left: 100%; }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -671,19 +933,19 @@
                 </div>
                 <div class="city-text">
                     <h1><xsl:value-of select="/smartCity/@name"/></h1>
-                    <p style="color: #94a3b8; margin-top: 5px;">
+                    <div class="city-subtitle">
                         Smart City Dashboard • Real-time Monitoring System
-                    </p>
+                    </div>
                 </div>
             </div>
             
             <div class="city-stats">
                 <div class="stat-badge">
-                    <div class="stat-value"><xsl:value-of select="/smartCity/@population"/></div>
+                    <div class="stat-value"><xsl:value-of select="format-number(/smartCity/@population, '#,##0')"/></div>
                     <div class="stat-label">Population</div>
                 </div>
                 <div class="stat-badge">
-                    <div class="stat-value"><xsl:value-of select="/smartCity/@version"/></div>
+                    <div class="stat-value">v<xsl:value-of select="/smartCity/@version"/></div>
                     <div class="stat-label">Version</div>
                 </div>
                 <div class="stat-badge">
@@ -698,28 +960,28 @@
         <!-- Navigation -->
         <nav class="nav-container">
             <div class="nav-scroll">
-                <button class="nav-btn active" onclick="showSection('overview')">
+                <button class="nav-btn active" onclick="showSection('overview')" data-tooltip="Dashboard Overview">
                     <i class="fas fa-tachometer-alt"></i> Overview
                 </button>
-                <button class="nav-btn" onclick="showSection('traffic')">
+                <button class="nav-btn" onclick="showSection('traffic')" data-tooltip="Traffic Management">
                     <i class="fas fa-traffic-light"></i> Traffic
                 </button>
-                <button class="nav-btn" onclick="showSection('security')">
+                <button class="nav-btn" onclick="showSection('security')" data-tooltip="Security Incidents">
                     <i class="fas fa-shield-alt"></i> Security
                 </button>
-                <button class="nav-btn" onclick="showSection('environment')">
+                <button class="nav-btn" onclick="showSection('environment')" data-tooltip="Environment Monitoring">
                     <i class="fas fa-leaf"></i> Environment
                 </button>
-                <button class="nav-btn" onclick="showSection('services')">
+                <button class="nav-btn" onclick="showSection('services')" data-tooltip="Public Services">
                     <i class="fas fa-hospital"></i> Services
                 </button>
-                <button class="nav-btn" onclick="showSection('iot')">
+                <button class="nav-btn" onclick="showSection('iot')" data-tooltip="IoT Network">
                     <i class="fas fa-microchip"></i> IoT
                 </button>
-                <button class="nav-btn" onclick="showSection('users')">
+                <button class="nav-btn" onclick="showSection('users')" data-tooltip="System Users">
                     <i class="fas fa-users"></i> Users
                 </button>
-                <button class="nav-btn" onclick="showSection('analytics')">
+                <button class="nav-btn" onclick="showSection('analytics')" data-tooltip="City Analytics">
                     <i class="fas fa-chart-line"></i> Analytics
                 </button>
             </div>
@@ -730,9 +992,44 @@
             
             <!-- Overview Section -->
             <section id="overview" class="section active">
+                <!-- Quick Stats Row -->
+                <div class="quick-stats" style="grid-column: span 12;">
+                    <div class="quick-stat">
+                        <div class="quick-stat-label">Active Incidents</div>
+                        <div class="quick-stat-value pulse" style="color: var(--danger);">
+                            <xsl:value-of select="count(/smartCity/security/incident[@status='Active' or @status='Investigating'])"/>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-label">IoT Connected</div>
+                        <div class="quick-stat-value" style="color: var(--success);">
+                            <xsl:value-of select="format-number(/smartCity/iotDevices/@connected, '#,##0')"/>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-label">Air Quality</div>
+                        <div class="quick-stat-value">
+                            <xsl:value-of select="count(/smartCity/environment/airQuality/sensor[qualityIndex='Good'])"/>/<xsl:value-of select="count(/smartCity/environment/airQuality/sensor)"/>
+                        </div>
+                    </div>
+                    <div class="quick-stat">
+                        <div class="quick-stat-label">Response Time</div>
+                        <div class="quick-stat-value">
+                            <xsl:variable name="avgResponse" select="sum(/smartCity/security/incident/responseTime) div count(/smartCity/security/incident[responseTime])"/>
+                            <xsl:choose>
+                                <xsl:when test="$avgResponse &gt; 0">
+                                    <xsl:value-of select="format-number($avgResponse, '0.0')"/>min
+                                </xsl:when>
+                                <xsl:otherwise>N/A</xsl:otherwise>
+                            </xsl:choose>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Cards -->
                 <div class="overview-grid">
                     <!-- City Health Score -->
-                    <div class="dashboard-card" style="grid-column: span 4;">
+                    <div class="dashboard-card">
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="fas fa-heartbeat"></i> City Health Score
@@ -748,18 +1045,6 @@
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: {/smartCity/analytics/cityHealth/@score}%"></div>
                         </div>
-                    </div>
-
-                    <!-- Active Incidents -->
-                    <div class="dashboard-card" style="grid-column: span 4;">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-exclamation-triangle"></i> Active Incidents
-                            </h3>
-                        </div>
-                        <div class="kpi-value pulse" style="color: var(--danger);">
-                            <xsl:value-of select="count(/smartCity/security/incident[@status='Active' or @status='Investigating'])"/>
-                        </div>
                         <div class="kpi-trend">
                             <i class="fas fa-arrow-up trend-down"></i>
                             <span>Requires Attention</span>
@@ -767,7 +1052,7 @@
                     </div>
 
                     <!-- IoT Connectivity -->
-                    <div class="dashboard-card" style="grid-column: span 4;">
+                    <div class="dashboard-card">
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="fas fa-wifi"></i> IoT Connectivity
@@ -780,6 +1065,29 @@
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: {$iotPercent}%"></div>
                         </div>
+                        <div class="kpi-trend">
+                            <i class="fas fa-arrow-up trend-up"></i>
+                            <span>Excellent Connection</span>
+                        </div>
+                    </div>
+
+                    <!-- Environment Status -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-temperature-high"></i> Environment Status
+                            </h3>
+                        </div>
+                        <div class="kpi-value">
+                            <xsl:value-of select="/smartCity/environment/weather/current/temperature"/>°C
+                        </div>
+                        <div class="kpi-label">
+                            Temperature • Humidity: <xsl:value-of select="/smartCity/environment/weather/current/humidity"/>%
+                        </div>
+                        <div class="kpi-trend">
+                            <i class="fas fa-wind"></i>
+                            <span>Wind: <xsl:value-of select="/smartCity/environment/weather/current/windSpeed"/> km/h</span>
+                        </div>
                     </div>
 
                     <!-- Recent Incidents Table -->
@@ -788,6 +1096,10 @@
                             <h3 class="card-title">
                                 <i class="fas fa-history"></i> Recent Incidents
                             </h3>
+                            <button class="status-badge status-medium" onclick="showSection('security')" style="cursor: pointer;">
+                                <span class="status-dot"></span>
+                                View All
+                            </button>
                         </div>
                         <table class="data-table">
                             <thead>
@@ -818,11 +1130,13 @@
                                             <td>
                                                 <xsl:choose>
                                                     <xsl:when test="responseTime">
-                                                        <span style="color: var(--success);">
+                                                        <span style="color: var(--success); font-weight: 600;">
                                                             <xsl:value-of select="responseTime"/> min
                                                         </span>
                                                     </xsl:when>
-                                                    <xsl:otherwise>Pending</xsl:otherwise>
+                                                    <xsl:otherwise>
+                                                        <span style="color: var(--warning);">Pending</span>
+                                                    </xsl:otherwise>
                                                 </xsl:choose>
                                             </td>
                                         </tr>
@@ -836,306 +1150,547 @@
 
             <!-- Traffic Section -->
             <section id="traffic" class="section">
-                <div class="dashboard-card" style="grid-column: span 12;">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="fas fa-traffic-light"></i> Traffic Overview
-                        </h3>
-                    </div>
-                    <div class="metrics-grid">
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:variable name="avgSpeed" select="sum(/smartCity/infrastructure/traffic/intersection/avgSpeed) div count(/smartCity/infrastructure/traffic/intersection)"/>
-                                <xsl:value-of select="format-number($avgSpeed, '0.0')"/>
+                <div class="overview-grid">
+                    <!-- Traffic Overview -->
+                    <div class="dashboard-card" style="grid-column: span 12;">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-traffic-light"></i> Traffic Management
+                            </h3>
+                            <div class="quick-stats" style="display: flex; gap: 15px; margin: 0;">
+                                <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
+                                    <div class="quick-stat-label">Total Intersections</div>
+                                    <div class="quick-stat-value" style="font-size: 1.5rem;">
+                                        <xsl:value-of select="count(/smartCity/infrastructure/traffic/intersection)"/>
+                                    </div>
+                                </div>
+                                <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
+                                    <div class="quick-stat-label">Average Speed</div>
+                                    <div class="quick-stat-value" style="font-size: 1.5rem;">
+                                        <xsl:value-of select="format-number(sum(/smartCity/infrastructure/traffic/intersection/avgSpeed) div count(/smartCity/infrastructure/traffic/intersection), '0')"/> km/h
+                                    </div>
+                                </div>
                             </div>
-                            <div class="kpi-label">Average Speed (km/h)</div>
                         </div>
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:value-of select="count(/smartCity/infrastructure/traffic/intersection)"/>
-                            </div>
-                            <div class="kpi-label">Active Intersections</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Intersection</th>
-                                <th>Zone</th>
-                                <th>Congestion</th>
-                                <th>Avg Speed</th>
-                                <th>Last Update</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <xsl:for-each select="/smartCity/infrastructure/traffic/intersection">
+                        
+                        <!-- Intersections Table -->
+                        <table class="data-table">
+                            <thead>
                                 <tr>
-                                    <td><xsl:value-of select="@id"/></td>
-                                    <td><xsl:value-of select="@zone"/></td>
-                                    <td>
-                                        <span class="status-badge status-{translate(congestionLevel,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')}">
-                                            <span class="status-dot"></span>
-                                            <xsl:value-of select="congestionLevel"/>
-                                        </span>
-                                    </td>
-                                    <td><xsl:value-of select="avgSpeed"/> km/h</td>
-                                    <td><xsl:value-of select="substring(lastUpdate, 12, 5)"/></td>
+                                    <th>Intersection ID</th>
+                                    <th>Zone</th>
+                                    <th>Congestion Level</th>
+                                    <th>Average Speed</th>
+                                    <th>Last Update</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                <xsl:for-each select="/smartCity/infrastructure/traffic/intersection">
+                                    <tr>
+                                        <td><xsl:value-of select="@id"/></td>
+                                        <td><xsl:value-of select="@zone"/></td>
+                                        <td>
+                                            <xsl:choose>
+                                                <xsl:when test="congestionLevel='High'">
+                                                    <span class="status-badge status-high">
+                                                        <span class="status-dot"></span>
+                                                        <xsl:value-of select="congestionLevel"/>
+                                                    </span>
+                                                </xsl:when>
+                                                <xsl:when test="congestionLevel='Medium'">
+                                                    <span class="status-badge status-medium">
+                                                        <span class="status-dot"></span>
+                                                        <xsl:value-of select="congestionLevel"/>
+                                                    </span>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <span class="status-badge status-low">
+                                                        <span class="status-dot"></span>
+                                                        <xsl:value-of select="congestionLevel"/>
+                                                    </span>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </td>
+                                        <td><xsl:value-of select="avgSpeed"/> km/h</td>
+                                        <td><xsl:value-of select="substring(lastUpdate, 12, 5)"/></td>
+                                    </tr>
+                                </xsl:for-each>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Public Transport -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-bus"></i> Public Transport
+                            </h3>
+                        </div>
+                        <div class="metrics-grid">
+                            <xsl:for-each select="/smartCity/infrastructure/publicTransport/*">
+                                <div class="kpi-card">
+                                    <div class="kpi-value">
+                                        <xsl:value-of select="@id"/>
+                                    </div>
+                                    <div class="kpi-label">
+                                        <xsl:value-of select="local-name()"/>
+                                    </div>
+                                    <div class="kpi-trend">
+                                        <xsl:choose>
+                                            <xsl:when test="@status='Delayed'">
+                                                <i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i>
+                                                <span>Delayed: <xsl:value-of select="delayMinutes"/> min</span>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                                <span>On Time: <xsl:value-of select="delayMinutes"/> min</span>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </div>
+                                    <div style="margin-top: 10px; font-size: 0.85rem;">
+                                        Passengers: <xsl:value-of select="passengerCount"/>
+                                    </div>
+                                </div>
                             </xsl:for-each>
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
+
+                    <!-- Energy Management -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-bolt"></i> Energy Status
+                            </h3>
+                        </div>
+                        <div class="kpi-value" style="font-size: 2rem;">
+                            <xsl:value-of select="/smartCity/infrastructure/energy/smartGrid/@loadPercentage"/>%
+                        </div>
+                        <div class="kpi-label">
+                            Smart Grid Load
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: {/smartCity/infrastructure/energy/smartGrid/@loadPercentage}%"></div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <h4>Power Plants</h4>
+                            <xsl:for-each select="/smartCity/infrastructure/energy/powerPlant">
+                                <div style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                                    <strong><xsl:value-of select="@id"/></strong>
+                                    (<xsl:value-of select="@type"/>)
+                                    <br/>
+                                    Output: <xsl:value-of select="@outputMW"/> MW
+                                    <br/>
+                                    Efficiency: <xsl:value-of select="efficiency"/>%
+                                </div>
+                            </xsl:for-each>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- Security Section -->
             <section id="security" class="section">
-                <div class="dashboard-card" style="grid-column: span 12;">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="fas fa-shield-alt"></i> Security Incidents
-                        </h3>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="securityChart"></canvas>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Type</th>
-                                <th>Severity</th>
-                                <th>Status</th>
-                                <th>Zone</th>
-                                <th>Location</th>
-                                <th>Assigned</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <xsl:for-each select="/smartCity/security/incident">
+                <div class="overview-grid">
+                    <!-- Security Overview -->
+                    <div class="dashboard-card" style="grid-column: span 12;">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-shield-alt"></i> Security Incidents
+                            </h3>
+                            <div class="quick-stats" style="display: flex; gap: 15px; margin: 0;">
+                                <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
+                                    <div class="quick-stat-label">Total Incidents</div>
+                                    <div class="quick-stat-value" style="font-size: 1.5rem;">
+                                        <xsl:value-of select="count(/smartCity/security/incident)"/>
+                                    </div>
+                                </div>
+                                <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
+                                    <div class="quick-stat-label">Active</div>
+                                    <div class="quick-stat-value" style="font-size: 1.5rem; color: var(--danger);">
+                                        <xsl:value-of select="count(/smartCity/security/incident[@status='Active' or @status='Investigating'])"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Incidents Table -->
+                        <table class="data-table">
+                            <thead>
                                 <tr>
-                                    <td><xsl:value-of select="@id"/></td>
-                                    <td><xsl:value-of select="@type"/></td>
-                                    <td>
-                                        <span class="status-badge status-{translate(@severity,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')}">
-                                            <span class="status-dot"></span>
-                                            <xsl:value-of select="@severity"/>
-                                        </span>
-                                    </td>
-                                    <td><xsl:value-of select="@status"/></td>
-                                    <td><xsl:value-of select="zone"/></td>
-                                    <td><xsl:value-of select="location"/></td>
-                                    <td><xsl:value-of select="assignedTo"/></td>
+                                    <th>Incident ID</th>
+                                    <th>Type</th>
+                                    <th>Severity</th>
+                                    <th>Zone</th>
+                                    <th>Status</th>
+                                    <th>Time</th>
+                                    <th>Assigned To</th>
+                                    <th>Response Time</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                <xsl:for-each select="/smartCity/security/incident">
+                                    <xsl:sort select="time" order="descending"/>
+                                    <tr>
+                                        <td><xsl:value-of select="@id"/></td>
+                                        <td><xsl:value-of select="@type"/></td>
+                                        <td>
+                                            <span class="status-badge status-{translate(@severity,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')}">
+                                                <span class="status-dot"></span>
+                                                <xsl:value-of select="@severity"/>
+                                            </span>
+                                        </td>
+                                        <td><xsl:value-of select="zone"/></td>
+                                        <td>
+                                            <xsl:choose>
+                                                <xsl:when test="@status='Active'">
+                                                    <span class="status-badge status-high">
+                                                        <span class="status-dot"></span>
+                                                        <xsl:value-of select="@status"/>
+                                                    </span>
+                                                </xsl:when>
+                                                <xsl:when test="@status='Investigating'">
+                                                    <span class="status-badge status-medium">
+                                                        <span class="status-dot"></span>
+                                                        <xsl:value-of select="@status"/>
+                                                    </span>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <span class="status-badge status-low">
+                                                        <span class="status-dot"></span>
+                                                        <xsl:value-of select="@status"/>
+                                                    </span>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </td>
+                                        <td><xsl:value-of select="substring(time, 12, 5)"/></td>
+                                        <td><xsl:value-of select="assignedTo"/></td>
+                                        <td>
+                                            <xsl:choose>
+                                                <xsl:when test="responseTime">
+                                                    <span style="color: var(--success); font-weight: 600;">
+                                                        <xsl:value-of select="responseTime"/> min
+                                                    </span>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <span style="color: var(--warning);">Pending</span>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </td>
+                                    </tr>
+                                </xsl:for-each>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Surveillance Cameras -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-video"></i> Surveillance System
+                            </h3>
+                        </div>
+                        <div class="metrics-grid">
+                            <xsl:for-each select="/smartCity/security/surveillance/camera">
+                                <div class="kpi-card">
+                                    <div class="kpi-value">
+                                        <xsl:value-of select="@id"/>
+                                    </div>
+                                    <div class="kpi-label">
+                                        Zone: <xsl:value-of select="@zone"/>
+                                    </div>
+                                    <div class="kpi-trend">
+                                        <xsl:choose>
+                                            <xsl:when test="@status='Active'">
+                                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                                <span>Active</span>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <i class="fas fa-tools" style="color: var(--warning);"></i>
+                                                <span>Maintenance</span>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </div>
+                                    <div style="margin-top: 10px; font-size: 0.85rem;">
+                                        Last Motion: <xsl:value-of select="substring(lastMotion, 12, 5)"/>
+                                        <br/>
+                                        AI Detection: <xsl:value-of select="aiDetection"/>
+                                    </div>
+                                </div>
                             </xsl:for-each>
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- Environment Section -->
             <section id="environment" class="section">
-                <div class="dashboard-card" style="grid-column: span 12;">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="fas fa-leaf"></i> Environment Monitoring
-                        </h3>
-                    </div>
-                    <div class="metrics-grid">
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:value-of select="/smartCity/environment/weather/current/temperature"/>°C
-                            </div>
-                            <div class="kpi-label">Temperature</div>
+                <div class="overview-grid">
+                    <!-- Air Quality -->
+                    <div class="dashboard-card" style="grid-column: span 12;">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-wind"></i> Air Quality Monitoring
+                            </h3>
                         </div>
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:value-of select="/smartCity/environment/weather/current/humidity"/>
-                            </div>
-                            <div class="kpi-label">Humidity %</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Sensor</th>
-                                <th>Zone</th>
-                                <th>PM2.5</th>
-                                <th>Quality</th>
-                                <th>Health Advice</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        <div class="metrics-grid">
                             <xsl:for-each select="/smartCity/environment/airQuality/sensor">
-                                <tr>
-                                    <td><xsl:value-of select="@id"/></td>
-                                    <td><xsl:value-of select="@zone"/></td>
-                                    <td>
-                                        <xsl:choose>
-                                            <xsl:when test="pm25 &gt; 50">
-                                                <span style="color: var(--danger); font-weight: 600;">
-                                                    <xsl:value-of select="pm25"/>
-                                                </span>
-                                            </xsl:when>
-                                            <xsl:when test="pm25 &gt; 25">
-                                                <span style="color: var(--warning); font-weight: 600;">
-                                                    <xsl:value-of select="pm25"/>
-                                                </span>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <span style="color: var(--success); font-weight: 600;">
-                                                    <xsl:value-of select="pm25"/>
-                                                </span>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </td>
-                                    <td><xsl:value-of select="qualityIndex"/></td>
-                                    <td><xsl:value-of select="healthAdvice"/></td>
-                                </tr>
+                                <div class="kpi-card">
+                                    <div class="kpi-value">
+                                        <xsl:value-of select="qualityIndex"/>
+                                    </div>
+                                    <div class="kpi-label">
+                                        Zone: <xsl:value-of select="@zone"/>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: {pm25 div 100 * 100}%"></div>
+                                    </div>
+                                    <div style="margin-top: 10px; font-size: 0.8rem;">
+                                        PM2.5: <xsl:value-of select="pm25"/>
+                                        <br/>
+                                        PM10: <xsl:value-of select="pm10"/>
+                                        <br/>
+                                        Last Update: <xsl:value-of select="substring(timestamp, 12, 5)"/>
+                                    </div>
+                                </div>
                             </xsl:for-each>
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
+
+                    <!-- Weather -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-sun"></i> Current Weather
+                            </h3>
+                        </div>
+                        <div class="kpi-value">
+                            <xsl:value-of select="/smartCity/environment/weather/current/temperature"/>°C
+                        </div>
+                        <div class="kpi-label">
+                            <xsl:value-of select="/smartCity/environment/weather/current/condition"/>
+                        </div>
+                        <div class="kpi-trend">
+                            <i class="fas fa-tint"></i>
+                            <span>Humidity: <xsl:value-of select="/smartCity/environment/weather/current/humidity"/>%</span>
+                        </div>
+                        <div class="kpi-trend">
+                            <i class="fas fa-wind"></i>
+                            <span>Wind: <xsl:value-of select="/smartCity/environment/weather/current/windSpeed"/> km/h</span>
+                        </div>
+                        
+                        <!-- Forecast -->
+                        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <h4>Tomorrow's Forecast</h4>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                <div>
+                                    <div style="font-size: 1.2rem; font-weight: bold;">
+                                        <xsl:value-of select="/smartCity/environment/weather/forecast/high"/>°C
+                                    </div>
+                                    <div style="font-size: 0.8rem;">High</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.2rem; font-weight: bold;">
+                                        <xsl:value-of select="/smartCity/environment/weather/forecast/low"/>°C
+                                    </div>
+                                    <div style="font-size: 0.8rem;">Low</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.2rem;">
+                                        <xsl:value-of select="/smartCity/environment/weather/forecast/condition"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Waste Management -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-trash-alt"></i> Waste Management
+                            </h3>
+                        </div>
+                        <div class="kpi-value">
+                            <xsl:value-of select="/smartCity/environment/wasteManagement/recyclingRate"/>%
+                        </div>
+                        <div class="kpi-label">
+                            Recycling Rate
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: {/smartCity/environment/wasteManagement/recyclingRate}%"></div>
+                        </div>
+                        
+                        <!-- Smart Bins -->
+                        <div style="margin-top: 20px;">
+                            <h4>Smart Bins</h4>
+                            <xsl:for-each select="/smartCity/environment/wasteManagement/smartBin">
+                                <div style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                                    <strong><xsl:value-of select="@id"/></strong> - <xsl:value-of select="@zone"/>
+                                    <br/>
+                                    Fill Level: <xsl:value-of select="@fillLevel"/>%
+                                    <br/>
+                                    Next Collection: <xsl:value-of select="substring(nextCollection, 12, 5)"/>
+                                </div>
+                            </xsl:for-each>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- Services Section -->
             <section id="services" class="section">
-                <div class="dashboard-card" style="grid-column: span 12;">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="fas fa-hospital"></i> Public Services
-                        </h3>
+                <div class="overview-grid">
+                    <!-- Hospital -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-hospital"></i> Hospital Status
+                            </h3>
+                        </div>
+                        <xsl:for-each select="/smartCity/services/hospital">
+                            <div class="kpi-value">
+                                <xsl:value-of select="@bedsAvailable"/>
+                            </div>
+                            <div class="kpi-label">
+                                Beds Available
+                            </div>
+                            <div class="kpi-trend">
+                                <i class="fas fa-clock"></i>
+                                <span>Waiting Time: <xsl:value-of select="@waitingTime"/> min</span>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <h4>Specialties</h4>
+                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                                    <xsl:for-each select="specialties/specialty">
+                                        <span style="background: rgba(6, 182, 212, 0.15); color: #67e8f9; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem;">
+                                            <xsl:value-of select="."/>
+                                        </span>
+                                    </xsl:for-each>
+                                </div>
+                            </div>
+                        </xsl:for-each>
                     </div>
-                    <div class="metrics-grid">
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:value-of select="/smartCity/services/hospital/@bedsAvailable"/>
-                            </div>
-                            <div class="kpi-label">Hospital Beds Available</div>
+
+                    <!-- School -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-school"></i> School Status
+                            </h3>
                         </div>
-                        <div class="kpi-card">
+                        <xsl:for-each select="/smartCity/services/school">
                             <div class="kpi-value">
-                                <xsl:value-of select="/smartCity/services/publicWiFi/@uptime"/>%
+                                <xsl:value-of select="studentsPresent"/>
                             </div>
-                            <div class="kpi-label">Public WiFi Uptime</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:value-of select="/smartCity/environment/wasteManagement/recyclingRate"/>%
+                            <div class="kpi-label">
+                                Students Present
                             </div>
-                            <div class="kpi-label">Recycling Rate</div>
-                        </div>
+                            <div class="kpi-trend">
+                                <xsl:choose>
+                                    <xsl:when test="@status='Open'">
+                                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                        <span>School Open</span>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <i class="fas fa-times-circle" style="color: var(--danger);"></i>
+                                        <span>School Closed</span>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <h4>Air Quality in Classroom</h4>
+                                <span class="status-badge status-low">
+                                    <span class="status-dot"></span>
+                                    <xsl:value-of select="airQualityInClassroom"/>
+                                </span>
+                            </div>
+                        </xsl:for-each>
                     </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Service</th>
-                                <th>Zone</th>
-                                <th>Status</th>
-                                <th>Metrics</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Hospital H1</td>
-                                <td><xsl:value-of select="/smartCity/services/hospital/@zone"/></td>
-                                <td>
-                                    <span class="status-badge status-low">
-                                        <span class="status-dot"></span>
-                                        Operational
-                                    </span>
-                                </td>
-                                <td>
-                                    <xsl:value-of select="/smartCity/services/hospital/@bedsAvailable"/> beds, 
-                                    <xsl:value-of select="/smartCity/services/hospital/@waitingTime"/> min wait
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>School S1</td>
-                                <td><xsl:value-of select="/smartCity/services/school/@zone"/></td>
-                                <td>
-                                    <span class="status-badge status-low">
-                                        <span class="status-dot"></span>
-                                        <xsl:value-of select="/smartCity/services/school/@status"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <xsl:value-of select="/smartCity/services/school/studentsPresent"/> students present
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Public WiFi</td>
-                                <td>Citywide</td>
-                                <td>
-                                    <span class="status-badge status-low">
-                                        <span class="status-dot"></span>
-                                        Active
-                                    </span>
-                                </td>
-                                <td>
-                                    <xsl:value-of select="/smartCity/services/publicWiFi/@accessPoints"/> access points, 
-                                    <xsl:value-of select="/smartCity/services/publicWiFi/activeConnections"/> connections
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    <!-- Public WiFi -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-wifi"></i> Public WiFi
+                            </h3>
+                        </div>
+                        <xsl:for-each select="/smartCity/services/publicWiFi">
+                            <div class="kpi-value">
+                                <xsl:value-of select="@uptime"/>%
+                            </div>
+                            <div class="kpi-label">
+                                Uptime
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: {@uptime}%"></div>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 1.5rem; font-weight: bold;">
+                                            <xsl:value-of select="@accessPoints"/>
+                                        </div>
+                                        <div style="font-size: 0.8rem;">Access Points</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 1.5rem; font-weight: bold;">
+                                            <xsl:value-of select="activeConnections"/>
+                                        </div>
+                                        <div style="font-size: 0.8rem;">Active Connections</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </xsl:for-each>
+                    </div>
                 </div>
             </section>
 
             <!-- IoT Section -->
             <section id="iot" class="section">
-                <div class="dashboard-card" style="grid-column: span 12;">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="fas fa-microchip"></i> IoT Network Status
-                        </h3>
-                    </div>
-                    <div class="metrics-grid">
-                        <div class="kpi-card">
-                            <div class="kpi-value"><xsl:value-of select="/smartCity/iotDevices/@total"/></div>
-                            <div class="kpi-label">Total Devices</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-value" style="color: var(--success);">
-                                <xsl:value-of select="/smartCity/iotDevices/@connected"/>
+                <div class="overview-grid">
+                    <!-- IoT Overview -->
+                    <div class="dashboard-card" style="grid-column: span 12;">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-microchip"></i> IoT Network Status
+                            </h3>
+                            <div class="quick-stats" style="display: flex; gap: 15px; margin: 0;">
+                                <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
+                                    <div class="quick-stat-label">Total Devices</div>
+                                    <div class="quick-stat-value" style="font-size: 1.5rem;">
+                                        <xsl:value-of select="format-number(/smartCity/iotDevices/@total, '#,##0')"/>
+                                    </div>
+                                </div>
+                                <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
+                                    <div class="quick-stat-label">Connected</div>
+                                    <div class="quick-stat-value" style="font-size: 1.5rem; color: var(--success);">
+                                        <xsl:value-of select="format-number(/smartCity/iotDevices/@connected, '#,##0')"/>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="kpi-label">Connected</div>
                         </div>
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:variable name="iotRate" select="round(/smartCity/iotDevices/@connected div /smartCity/iotDevices/@total * 100)"/>
-                                <xsl:value-of select="$iotRate"/>%
-                            </div>
-                            <div class="kpi-label">Connection Rate</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Device Type</th>
-                                <th>Count</th>
-                                <th>Percentage</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        
+                        <!-- IoT Devices Breakdown -->
+                        <div class="metrics-grid" style="margin-top: 20px;">
                             <xsl:for-each select="/smartCity/iotDevices/device">
-                                <tr>
-                                    <td><xsl:value-of select="@type"/></td>
-                                    <td><xsl:value-of select="@count"/></td>
-                                    <td>
-                                        <xsl:variable name="percent" select="format-number(@count div /smartCity/iotDevices/@total * 100, '0.0')"/>
-                                        <xsl:value-of select="$percent"/>%
-                                    </td>
-                                    <td>
-                                        <span class="status-badge status-low">
-                                            <span class="status-dot"></span>
-                                            Active
-                                        </span>
-                                    </td>
-                                </tr>
+                                <div class="kpi-card">
+                                    <div class="kpi-value">
+                                        <xsl:value-of select="format-number(@count, '#,##0')"/>
+                                    </div>
+                                    <div class="kpi-label">
+                                        <xsl:value-of select="@type"/>
+                                    </div>
+                                    <xsl:variable name="percent" select="round(@count div /smartCity/iotDevices/@total * 100)"/>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: {$percent}%"></div>
+                                    </div>
+                                    <div class="kpi-trend">
+                                        <span><xsl:value-of select="$percent"/>% of total</span>
+                                    </div>
+                                </div>
                             </xsl:for-each>
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -1146,25 +1701,19 @@
                         <h3 class="card-title">
                             <i class="fas fa-users"></i> System Users
                         </h3>
-                    </div>
-                    
-                    <!-- User Statistics -->
-                    <div class="metrics-grid">
-                        <div class="kpi-card">
-                            <div class="kpi-value"><xsl:value-of select="count(/smartCity/users/user)"/></div>
-                            <div class="kpi-label">Total Users</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:value-of select="count(/smartCity/users/user[role='Admin' or role='CityManager'])"/>
+                        <div class="quick-stats" style="display: flex; gap: 15px; margin: 0;">
+                            <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
+                                <div class="quick-stat-label">Total Users</div>
+                                <div class="quick-stat-value" style="font-size: 1.5rem;">
+                                    <xsl:value-of select="count(/smartCity/users/user)"/>
+                                </div>
                             </div>
-                            <div class="kpi-label">Administrators</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-value">
-                                <xsl:value-of select="count(/smartCity/users/user[role='SecurityOfficer' or role='EnvironmentalOfficer'])"/>
+                            <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
+                                <div class="quick-stat-label">Active Now</div>
+                                <div class="quick-stat-value" style="font-size: 1.5rem; color: var(--success);">
+                                    <xsl:value-of select="count(/smartCity/users/user)"/>
+                                </div>
                             </div>
-                            <div class="kpi-label">Operators</div>
                         </div>
                     </div>
                     
@@ -1204,11 +1753,6 @@
                                                         <xsl:value-of select="@role"/>
                                                     </span>
                                                 </xsl:when>
-                                                <xsl:otherwise>
-                                                    <span class="role-badge role-admin">
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:otherwise>
                                             </xsl:choose>
                                         </div>
                                     </div>
@@ -1230,13 +1774,12 @@
                                     <div class="user-detail">
                                         <span class="detail-label">Last Login:</span>
                                         <span class="detail-value">
-                                            <xsl:value-of select="substring(lastLogin, 1, 10)"/>
-                                            <xsl:text> at </xsl:text>
                                             <xsl:value-of select="substring(lastLogin, 12, 5)"/>
+                                            <xsl:text> today</xsl:text>
                                         </span>
                                     </div>
                                     <div class="user-detail">
-                                        <span class="detail-label">Permissions:</span>
+                                        <span class="detail-label">Access:</span>
                                         <span class="detail-value" style="color: var(--primary-light);">
                                             <xsl:value-of select="permissions"/>
                                         </span>
@@ -1247,125 +1790,240 @@
                     </div>
                     
                     <!-- User Summary Table -->
-                    <table class="data-table" style="margin-top: 30px;">
-                        <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>Name</th>
-                                <th>Role</th>
-                                <th>Department</th>
-                                <th>Email</th>
-                                <th>Last Activity</th>
-                                <th>Permissions Level</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <xsl:for-each select="/smartCity/users/user">
+                    <div style="margin-top: 30px;">
+                        <h3 class="card-title" style="margin-bottom: 15px;">
+                            <i class="fas fa-table"></i> User Details Table
+                        </h3>
+                        <table class="data-table">
+                            <thead>
                                 <tr>
-                                    <td><xsl:value-of select="@id"/></td>
-                                    <td><strong><xsl:value-of select="name"/></strong></td>
-                                    <td>
-                                        <xsl:choose>
-                                            <xsl:when test="@role='Admin'">
-                                                <span class="role-badge role-admin">
-                                                    <xsl:value-of select="@role"/>
-                                                </span>
-                                            </xsl:when>
-                                            <xsl:when test="@role='SecurityOfficer'">
-                                                <span class="role-badge role-security">
-                                                    <xsl:value-of select="@role"/>
-                                                </span>
-                                            </xsl:when>
-                                            <xsl:when test="@role='CityManager'">
-                                                <span class="role-badge role-manager">
-                                                    <xsl:value-of select="@role"/>
-                                                </span>
-                                            </xsl:when>
-                                            <xsl:when test="@role='EnvironmentalOfficer'">
-                                                <span class="role-badge role-env">
-                                                    <xsl:value-of select="@role"/>
-                                                </span>
-                                            </xsl:when>
-                                        </xsl:choose>
-                                    </td>
-                                    <td><xsl:value-of select="@department"/></td>
-                                    <td><xsl:value-of select="email"/></td>
-                                    <td>
-                                        <xsl:value-of select="substring(lastLogin, 12, 5)"/>
-                                        <xsl:text> (</xsl:text>
-                                        <xsl:value-of select="substring(lastLogin, 1, 10)"/>
-                                        <xsl:text>)</xsl:text>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge status-low">
-                                            <xsl:choose>
-                                                <xsl:when test="permissions='full'">
-                                                    <span class="status-dot"></span>
-                                                    Full Access
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <span class="status-dot" style="background: var(--warning);"></span>
-                                                    Limited Access
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </span>
-                                    </td>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Email</th>
+                                    <th>Last Activity</th>
+                                    <th>Permissions</th>
                                 </tr>
-                            </xsl:for-each>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <xsl:for-each select="/smartCity/users/user">
+                                    <tr onclick="showUserDetails('{@id}')" style="cursor: pointer;">
+                                        <td><xsl:value-of select="@id"/></td>
+                                        <td><strong><xsl:value-of select="name"/></strong></td>
+                                        <td>
+                                            <xsl:choose>
+                                                <xsl:when test="@role='Admin'">
+                                                    <span class="role-badge role-admin">
+                                                        <xsl:value-of select="@role"/>
+                                                    </span>
+                                                </xsl:when>
+                                                <xsl:when test="@role='SecurityOfficer'">
+                                                    <span class="role-badge role-security">
+                                                        <xsl:value-of select="@role"/>
+                                                    </span>
+                                                </xsl:when>
+                                                <xsl:when test="@role='CityManager'">
+                                                    <span class="role-badge role-manager">
+                                                        <xsl:value-of select="@role"/>
+                                                    </span>
+                                                </xsl:when>
+                                                <xsl:when test="@role='EnvironmentalOfficer'">
+                                                    <span class="role-badge role-env">
+                                                        <xsl:value-of select="@role"/>
+                                                    </span>
+                                                </xsl:when>
+                                            </xsl:choose>
+                                        </td>
+                                        <td><xsl:value-of select="@department"/></td>
+                                        <td><xsl:value-of select="email"/></td>
+                                        <td>
+                                            <xsl:value-of select="substring(lastLogin, 12, 5)"/>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-low">
+                                                <xsl:choose>
+                                                    <xsl:when test="permissions='full'">
+                                                        <span class="status-dot"></span>
+                                                        Full Access
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <span class="status-dot" style="background: var(--warning);"></span>
+                                                        Limited
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </xsl:for-each>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
             <!-- Analytics Section -->
             <section id="analytics" class="section">
                 <div class="overview-grid">
-                    <xsl:for-each select="/smartCity/analytics/*">
-                        <div class="dashboard-card" style="grid-column: span 3;">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <xsl:choose>
-                                        <xsl:when test="name() = 'cityHealth'"><i class="fas fa-heartbeat"></i></xsl:when>
-                                        <xsl:when test="name() = 'safetyIndex'"><i class="fas fa-shield-alt"></i></xsl:when>
-                                        <xsl:when test="name() = 'sustainabilityIndex'"><i class="fas fa-seedling"></i></xsl:when>
-                                        <xsl:when test="name() = 'citizenSatisfaction'"><i class="fas fa-users"></i></xsl:when>
-                                    </xsl:choose>
-                                    <xsl:value-of select="
-                                        translate(
-                                            substring-before(
-                                                concat(name(), 'Index'), 
-                                                'Index'
-                                            ), 
-                                            'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
-                                            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-                                        )
-                                    "/>
-                                </h3>
-                            </div>
-                            <div class="kpi-value"><xsl:value-of select="@score"/></div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: {@score}%"></div>
-                            </div>
-                            <xsl:if test="@trend">
+                    <!-- City Analytics Overview -->
+                    <div class="dashboard-card" style="grid-column: span 12;">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-line"></i> City Analytics Dashboard
+                            </h3>
+                        </div>
+                        
+                        <!-- Analytics KPIs -->
+                        <div class="metrics-grid">
+                            <div class="kpi-card">
+                                <div class="kpi-value">
+                                    <xsl:value-of select="/smartCity/analytics/cityHealth/@score"/>
+                                </div>
+                                <div class="kpi-label">
+                                    City Health Score
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: {/smartCity/analytics/cityHealth/@score}%"></div>
+                                </div>
                                 <div class="kpi-trend">
                                     <xsl:choose>
-                                        <xsl:when test="@trend = 'Improving'">
+                                        <xsl:when test="/smartCity/analytics/cityHealth/@trend='Improving'">
                                             <i class="fas fa-arrow-up trend-up"></i>
-                                            <span>Improving</span>
-                                        </xsl:when>
-                                        <xsl:when test="@trend = 'Declining'">
-                                            <i class="fas fa-arrow-down trend-down"></i>
-                                            <span>Declining</span>
+                                            <span>Trend: <xsl:value-of select="/smartCity/analytics/cityHealth/@trend"/></span>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <i class="fas fa-minus trend-stable"></i>
-                                            <span>Stable</span>
+                                            <i class="fas fa-arrow-down trend-down"></i>
+                                            <span>Trend: <xsl:value-of select="/smartCity/analytics/cityHealth/@trend"/></span>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </div>
-                            </xsl:if>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-value">
+                                    <xsl:value-of select="/smartCity/analytics/safetyIndex/@score"/>
+                                </div>
+                                <div class="kpi-label">
+                                    Safety Index
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: {/smartCity/analytics/safetyIndex/@score}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-value">
+                                    <xsl:value-of select="/smartCity/analytics/sustainabilityIndex/@score"/>
+                                </div>
+                                <div class="kpi-label">
+                                    Sustainability Index
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: {/smartCity/analytics/sustainabilityIndex/@score}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-value">
+                                    <xsl:value-of select="/smartCity/analytics/citizenSatisfaction/@score"/>
+                                </div>
+                                <div class="kpi-label">
+                                    Citizen Satisfaction
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: {/smartCity/analytics/citizenSatisfaction/@score}%"></div>
+                                </div>
+                            </div>
                         </div>
-                    </xsl:for-each>
+                    </div>
+
+                    <!-- City Information -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-info-circle"></i> City Information
+                            </h3>
+                        </div>
+                        <div class="user-details">
+                            <xsl:for-each select="/smartCity/cityInfo/*">
+                                <div class="user-detail">
+                                    <span class="detail-label">
+                                        <xsl:choose>
+                                            <xsl:when test="name()='mayor'">Mayor</xsl:when>
+                                            <xsl:when test="name()='emergencyNumber'">Emergency</xsl:when>
+                                            <xsl:when test="name()='website'">Website</xsl:when>
+                                            <xsl:when test="name()='timezone'">Timezone</xsl:when>
+                                            <xsl:when test="name()='status'">Status</xsl:when>
+                                        </xsl:choose>
+                                    </span>
+                                    <span class="detail-value">
+                                        <xsl:choose>
+                                            <xsl:when test="name()='website'">
+                                                <a href="{.}" style="color: var(--primary-light); text-decoration: none;">
+                                                    <xsl:value-of select="."/>
+                                                </a>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="."/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </span>
+                                </div>
+                            </xsl:for-each>
+                            <div class="user-detail">
+                                <span class="detail-label">Population</span>
+                                <span class="detail-value"><xsl:value-of select="format-number(/smartCity/@population, '#,##0')"/></span>
+                            </div>
+                            <div class="user-detail">
+                                <span class="detail-label">Version</span>
+                                <span class="detail-value"><xsl:value-of select="/smartCity/@version"/></span>
+                            </div>
+                            <div class="user-detail">
+                                <span class="detail-label">Date</span>
+                                <span class="detail-value"><xsl:value-of select="/smartCity/@date"/></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- City Summary -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-pie"></i> City Summary
+                            </h3>
+                        </div>
+                        <div class="user-details">
+                            <div class="user-detail">
+                                <span class="detail-label">Total Incidents Today</span>
+                                <span class="detail-value"><xsl:value-of select="count(/smartCity/security/incident)"/></span>
+                            </div>
+                            <div class="user-detail">
+                                <span class="detail-label">IoT Connectivity</span>
+                                <xsl:variable name="iotPercent" select="round(/smartCity/iotDevices/@connected div /smartCity/iotDevices/@total * 100)"/>
+                                <span class="detail-value"><xsl:value-of select="$iotPercent"/>%</span>
+                            </div>
+                            <div class="user-detail">
+                                <span class="detail-label">Public Transport Status</span>
+                                <span class="detail-value">
+                                    <xsl:value-of select="count(/smartCity/infrastructure/publicTransport/*[@status='Operational'])"/>/<xsl:value-of select="count(/smartCity/infrastructure/publicTransport/*)"/>
+                                </span>
+                            </div>
+                            <div class="user-detail">
+                                <span class="detail-label">Air Quality Sensors</span>
+                                <span class="detail-value"><xsl:value-of select="count(/smartCity/environment/airQuality/sensor)"/></span>
+                            </div>
+                            <div class="user-detail">
+                                <span class="detail-label">Active Cameras</span>
+                                <span class="detail-value">
+                                    <xsl:value-of select="count(/smartCity/security/surveillance/camera[@status='Active'])"/>/<xsl:value-of select="count(/smartCity/security/surveillance/camera)"/>
+                                </span>
+                            </div>
+                            <div class="user-detail">
+                                <span class="detail-label">Hospital Beds Available</span>
+                                <span class="detail-value"><xsl:value-of select="/smartCity/services/hospital/@bedsAvailable"/></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -1378,26 +2036,21 @@
             // Remove active class from all buttons and sections
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
-                anime({
-                    targets: btn,
-                    scale: 1,
-                    duration: 300
-                });
             });
             
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(30px)';
             });
 
             // Add active class to clicked button
-            const activeBtn = event.target;
+            const activeBtn = event.currentTarget;
             activeBtn.classList.add('active');
+            
+            // Animate button
             anime({
                 targets: activeBtn,
                 scale: [1, 1.05, 1],
-                duration: 600,
+                duration: 400,
                 easing: 'easeInOutQuad'
             });
 
@@ -1407,9 +2060,9 @@
                 activeSection.classList.add('active');
                 anime({
                     targets: activeSection,
-                    opacity: 1,
-                    translateY: 0,
-                    duration: 800,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 500,
                     easing: 'easeOutCubic'
                 });
             }, 100);
@@ -1417,14 +2070,14 @@
             // Animate cards in section
             setTimeout(() => {
                 anime({
-                    targets: activeSection.querySelectorAll('.dashboard-card, .kpi-card, .user-card'),
+                    targets: activeSection.querySelectorAll('.dashboard-card, .kpi-card, .user-card, .quick-stat'),
                     opacity: [0, 1],
-                    translateY: [30, 0],
-                    delay: anime.stagger(100),
-                    duration: 600,
+                    translateY: [15, 0],
+                    delay: anime.stagger(80, {start: 100}),
+                    duration: 500,
                     easing: 'easeOutCubic'
                 });
-            }, 300);
+            }, 200);
         }
 
         // Initialize animations
@@ -1433,113 +2086,103 @@
             anime({
                 targets: '.city-logo',
                 rotate: [0, 360],
-                duration: 2000,
+                duration: 1500,
                 easing: 'easeInOutSine',
-                delay: 500
+                delay: 300
             });
 
             // Animate stat badges
             anime({
                 targets: '.stat-badge',
                 opacity: [0, 1],
-                translateY: [20, 0],
-                delay: anime.stagger(200),
-                duration: 800,
+                translateY: [15, 0],
+                delay: anime.stagger(150, {start: 500}),
+                duration: 600,
+                easing: 'easeOutBack'
+            });
+
+            // Animate quick stats
+            anime({
+                targets: '.quick-stat',
+                opacity: [0, 1],
+                translateY: [10, 0],
+                delay: anime.stagger(100, {start: 800}),
+                duration: 500,
                 easing: 'easeOutCubic'
             });
 
             // Initialize charts
             initializeCharts();
+            
+            // Add click effects to cards
+            document.querySelectorAll('.dashboard-card, .kpi-card, .user-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('button')) {
+                        anime({
+                            targets: this,
+                            scale: [1, 0.98, 1],
+                            duration: 300,
+                            easing: 'easeInOutQuad'
+                        });
+                    }
+                });
+            });
         });
 
         function initializeCharts() {
-            // Security Incident Chart
-            const securityCtx = document.createElement('canvas');
-            document.getElementById('securityChart').appendChild(securityCtx);
-            
-            new Chart(securityCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['High', 'Medium', 'Low'],
-                    datasets: [{
-                        label: 'Incidents by Severity',
-                        data: [
-                            <xsl:value-of select="count(/smartCity/security/incident[@severity='High'])"/>,
-                            <xsl:value-of select="count(/smartCity/security/incident[@severity='Medium'])"/>,
-                            <xsl:value-of select="count(/smartCity/security/incident[@severity='Low'])"/>
-                        ],
-                        backgroundColor: [
-                            'rgba(239, 68, 68, 0.8)',
-                            'rgba(245, 158, 11, 0.8)',
-                            'rgba(16, 185, 129, 0.8)'
-                        ],
-                        borderColor: [
-                            'rgb(239, 68, 68)',
-                            'rgb(245, 158, 11)',
-                            'rgb(16, 185, 129)'
-                        ],
-                        borderWidth: 2,
-                        borderRadius: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: {
-                        duration: 2000,
-                        easing: 'easeOutQuart'
-                    },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#cbd5e1',
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.05)'
-                            },
-                            ticks: {
-                                color: '#94a3b8'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.05)'
-                            },
-                            ticks: {
-                                color: '#94a3b8'
-                            }
-                        }
-                    }
-                }
-            });
-
             // Progress bar animations
             anime({
                 targets: '.progress-fill',
                 width: (el) => {
                     return el.style.width;
                 },
-                duration: 2000,
-                delay: anime.stagger(100),
-                easing: 'easeOutElastic(1, .8)'
+                duration: 1500,
+                delay: anime.stagger(80, {start: 1000}),
+                easing: 'easeOutElastic(1, .6)'
             });
         }
 
-        // Add hover effects to cards
-        document.querySelectorAll('.dashboard-card, .kpi-card, .user-card').forEach(card => {
+        // User details modal
+        function showUserDetails(userId) {
+            alert('User details for ' + userId + ' would open in a modal.');
+        }
+
+        // Real-time update simulation
+        function simulateUpdates() {
+            setInterval(() => {
+                // Animate pulse elements
+                anime({
+                    targets: '.pulse',
+                    scale: [1, 1.03, 1],
+                    duration: 800,
+                    easing: 'easeInOutQuad'
+                });
+                
+                // Random update simulation
+                const randomStats = document.querySelectorAll('.quick-stat-value');
+                randomStats.forEach(stat => {
+                    if (Math.random() > 0.7) {
+                        anime({
+                            targets: stat,
+                            scale: [1, 1.1, 1],
+                            duration: 300,
+                            easing: 'easeInOutQuad'
+                        });
+                    }
+                });
+            }, 5000);
+        }
+
+        // Start simulation
+        simulateUpdates();
+
+        // Add hover effects
+        document.querySelectorAll('.dashboard-card, .kpi-card, .user-card, .quick-stat').forEach(card => {
             card.addEventListener('mouseenter', () => {
                 anime({
                     targets: card,
                     scale: 1.02,
-                    duration: 300,
+                    duration: 200,
                     easing: 'easeOutQuad'
                 });
             });
@@ -1548,26 +2191,11 @@
                 anime({
                     targets: card,
                     scale: 1,
-                    duration: 300,
+                    duration: 200,
                     easing: 'easeOutQuad'
                 });
             });
         });
-
-        // Real-time update simulation
-        function simulateUpdates() {
-            setInterval(() => {
-                anime({
-                    targets: '.pulse',
-                    scale: [1, 1.05, 1],
-                    duration: 1000,
-                    easing: 'easeInOutQuad'
-                });
-            }, 3000);
-        }
-
-        // Start simulation
-        simulateUpdates();
     </script>
 </body>
 </html>
