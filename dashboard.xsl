@@ -10,9 +10,9 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>NeoCity 2.0 | Smart City Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     
     <style>
         :root {
@@ -41,7 +41,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
@@ -87,7 +87,7 @@
             align-items: center;
             padding: 20px 30px;
             background: var(--card-bg);
-            backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px);
             border-radius: 24px;
             margin-bottom: 25px;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -258,7 +258,7 @@
             gap: 10px;
             padding: 15px;
             background: var(--card-bg);
-            backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.06);
             overflow-x: auto;
@@ -356,7 +356,7 @@
         /* Dashboard Cards */
         .dashboard-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 25px;
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -899,28 +899,6 @@
         @keyframes loading {
             100% { left: 100%; }
         }
-
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-        }
-
-        .tooltip:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--dark);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
     </style>
 </head>
 <body>
@@ -960,28 +938,28 @@
         <!-- Navigation -->
         <nav class="nav-container">
             <div class="nav-scroll">
-                <button class="nav-btn active" onclick="showSection('overview')" data-tooltip="Dashboard Overview">
+                <button class="nav-btn active" onclick="showSection('overview')">
                     <i class="fas fa-tachometer-alt"></i> Overview
                 </button>
-                <button class="nav-btn" onclick="showSection('traffic')" data-tooltip="Traffic Management">
+                <button class="nav-btn" onclick="showSection('traffic')">
                     <i class="fas fa-traffic-light"></i> Traffic
                 </button>
-                <button class="nav-btn" onclick="showSection('security')" data-tooltip="Security Incidents">
+                <button class="nav-btn" onclick="showSection('security')">
                     <i class="fas fa-shield-alt"></i> Security
                 </button>
-                <button class="nav-btn" onclick="showSection('environment')" data-tooltip="Environment Monitoring">
+                <button class="nav-btn" onclick="showSection('environment')">
                     <i class="fas fa-leaf"></i> Environment
                 </button>
-                <button class="nav-btn" onclick="showSection('services')" data-tooltip="Public Services">
+                <button class="nav-btn" onclick="showSection('services')">
                     <i class="fas fa-hospital"></i> Services
                 </button>
-                <button class="nav-btn" onclick="showSection('iot')" data-tooltip="IoT Network">
+                <button class="nav-btn" onclick="showSection('iot')">
                     <i class="fas fa-microchip"></i> IoT
                 </button>
-                <button class="nav-btn" onclick="showSection('users')" data-tooltip="System Users">
+                <button class="nav-btn" onclick="showSection('users')">
                     <i class="fas fa-users"></i> Users
                 </button>
-                <button class="nav-btn" onclick="showSection('analytics')" data-tooltip="City Analytics">
+                <button class="nav-btn" onclick="showSection('analytics')">
                     <i class="fas fa-chart-line"></i> Analytics
                 </button>
             </div>
@@ -1009,7 +987,7 @@
                     <div class="quick-stat">
                         <div class="quick-stat-label">Air Quality</div>
                         <div class="quick-stat-value">
-                            <xsl:value-of select="count(/smartCity/environment/airQuality/sensor[qualityIndex='Good'])"/>/<xsl:value-of select="count(/smartCity/environment/airQuality/sensor)"/>
+                            <xsl:value-of select="count(/smartCity/environment/airQuality/sensor[qualityIndex='Good' or qualityIndex='Excellent'])"/>/<xsl:value-of select="count(/smartCity/environment/airQuality/sensor)"/>
                         </div>
                     </div>
                     <div class="quick-stat">
@@ -1191,7 +1169,7 @@
                                         <td><xsl:value-of select="@zone"/></td>
                                         <td>
                                             <xsl:choose>
-                                                <xsl:when test="congestionLevel='High'">
+                                                <xsl:when test="congestionLevel='High' or congestionLevel='Severe'">
                                                     <span class="status-badge status-high">
                                                         <span class="status-dot"></span>
                                                         <xsl:value-of select="congestionLevel"/>
@@ -1484,19 +1462,19 @@
                             <div style="display: flex; justify-content: space-between; margin-top: 10px;">
                                 <div>
                                     <div style="font-size: 1.2rem; font-weight: bold;">
-                                        <xsl:value-of select="/smartCity/environment/weather/forecast/high"/>°C
+                                        <xsl:value-of select="/smartCity/environment/weather/forecast[@period='Tomorrow']/high"/>°C
                                     </div>
                                     <div style="font-size: 0.8rem;">High</div>
                                 </div>
                                 <div>
                                     <div style="font-size: 1.2rem; font-weight: bold;">
-                                        <xsl:value-of select="/smartCity/environment/weather/forecast/low"/>°C
+                                        <xsl:value-of select="/smartCity/environment/weather/forecast[@period='Tomorrow']/low"/>°C
                                     </div>
                                     <div style="font-size: 0.8rem;">Low</div>
                                 </div>
                                 <div>
                                     <div style="font-size: 1.2rem;">
-                                        <xsl:value-of select="/smartCity/environment/weather/forecast/condition"/>
+                                        <xsl:value-of select="/smartCity/environment/weather/forecast[@period='Tomorrow']/condition"/>
                                     </div>
                                 </div>
                             </div>
@@ -1547,28 +1525,28 @@
                                 <i class="fas fa-hospital"></i> Hospital Status
                             </h3>
                         </div>
-                        <xsl:for-each select="/smartCity/services/hospital">
-                            <div class="kpi-value">
-                                <xsl:value-of select="@bedsAvailable"/>
-                            </div>
-                            <div class="kpi-label">
-                                Beds Available
-                            </div>
-                            <div class="kpi-trend">
-                                <i class="fas fa-clock"></i>
-                                <span>Waiting Time: <xsl:value-of select="@waitingTime"/> min</span>
-                            </div>
-                            <div style="margin-top: 15px;">
-                                <h4>Specialties</h4>
-                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
-                                    <xsl:for-each select="specialties/specialty">
-                                        <span style="background: rgba(6, 182, 212, 0.15); color: #67e8f9; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem;">
-                                            <xsl:value-of select="."/>
-                                        </span>
-                                    </xsl:for-each>
+                        <xsl:variable name="totalBeds" select="sum(/smartCity/services/hospital/@bedsAvailable)"/>
+                        <xsl:variable name="totalHospitals" select="count(/smartCity/services/hospital)"/>
+                        <div class="kpi-value">
+                            <xsl:value-of select="$totalBeds"/>
+                        </div>
+                        <div class="kpi-label">
+                            Total Beds Available (<xsl:value-of select="$totalHospitals"/> hospitals)
+                        </div>
+                        <div class="kpi-trend">
+                            <i class="fas fa-clock"></i>
+                            <span>Avg Waiting: <xsl:value-of select="format-number(sum(/smartCity/services/hospital/@waitingTime) div $totalHospitals, '0')"/> min</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <h4>All Hospitals</h4>
+                            <xsl:for-each select="/smartCity/services/hospital">
+                                <div style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                                    <strong><xsl:value-of select="@id"/></strong> - <xsl:value-of select="@zone"/>
+                                    <br/>
+                                    Beds: <xsl:value-of select="@bedsAvailable"/> • Wait: <xsl:value-of select="@waitingTime"/> min
                                 </div>
-                            </div>
-                        </xsl:for-each>
+                            </xsl:for-each>
+                        </div>
                     </div>
 
                     <!-- School -->
@@ -1578,33 +1556,29 @@
                                 <i class="fas fa-school"></i> School Status
                             </h3>
                         </div>
-                        <xsl:for-each select="/smartCity/services/school">
-                            <div class="kpi-value">
-                                <xsl:value-of select="studentsPresent"/>
-                            </div>
-                            <div class="kpi-label">
-                                Students Present
-                            </div>
-                            <div class="kpi-trend">
-                                <xsl:choose>
-                                    <xsl:when test="@status='Open'">
-                                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                        <span>School Open</span>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <i class="fas fa-times-circle" style="color: var(--danger);"></i>
-                                        <span>School Closed</span>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </div>
-                            <div style="margin-top: 15px;">
-                                <h4>Air Quality in Classroom</h4>
-                                <span class="status-badge status-low">
-                                    <span class="status-dot"></span>
-                                    <xsl:value-of select="airQualityInClassroom"/>
-                                </span>
-                            </div>
-                        </xsl:for-each>
+                        <xsl:variable name="totalStudents" select="sum(/smartCity/services/school/studentsPresent)"/>
+                        <xsl:variable name="totalSchools" select="count(/smartCity/services/school)"/>
+                        <div class="kpi-value">
+                            <xsl:value-of select="$totalStudents"/>
+                        </div>
+                        <div class="kpi-label">
+                            Students Present (<xsl:value-of select="$totalSchools"/> schools)
+                        </div>
+                        <div class="kpi-trend">
+                            <xsl:variable name="openSchools" select="count(/smartCity/services/school[@status='Open'])"/>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span><xsl:value-of select="$openSchools"/>/<xsl:value-of select="$totalSchools"/> Open</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <h4>All Schools</h4>
+                            <xsl:for-each select="/smartCity/services/school">
+                                <div style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                                    <strong><xsl:value-of select="@id"/></strong> - <xsl:value-of select="@zone"/>
+                                    <br/>
+                                    Status: <xsl:value-of select="@status"/> • Students: <xsl:value-of select="studentsPresent"/>
+                                </div>
+                            </xsl:for-each>
+                        </div>
                     </div>
 
                     <!-- Public WiFi -->
@@ -1711,7 +1685,7 @@
                             <div class="quick-stat" style="padding: 10px 15px; min-width: auto;">
                                 <div class="quick-stat-label">Active Now</div>
                                 <div class="quick-stat-value" style="font-size: 1.5rem; color: var(--success);">
-                                    <xsl:value-of select="count(/smartCity/users/user)"/>
+                                    <xsl:value-of select="count(/smartCity/users/user[@status='Active'])"/>
                                 </div>
                             </div>
                         </div>
@@ -1720,6 +1694,7 @@
                     <!-- User Cards Grid -->
                     <div class="user-grid">
                         <xsl:for-each select="/smartCity/users/user">
+                            <xsl:sort select="name"/>
                             <div class="user-card">
                                 <div class="user-header">
                                     <div class="user-avatar">
@@ -1728,32 +1703,14 @@
                                     <div class="user-info">
                                         <h3><xsl:value-of select="name"/></h3>
                                         <div class="user-role">
-                                            <xsl:choose>
-                                                <xsl:when test="@role='Admin'">
-                                                    <span class="role-badge role-admin">
-                                                        <i class="fas fa-crown"></i>
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:when>
-                                                <xsl:when test="@role='SecurityOfficer'">
-                                                    <span class="role-badge role-security">
-                                                        <i class="fas fa-shield-alt"></i>
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:when>
-                                                <xsl:when test="@role='CityManager'">
-                                                    <span class="role-badge role-manager">
-                                                        <i class="fas fa-cogs"></i>
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:when>
-                                                <xsl:when test="@role='EnvironmentalOfficer'">
-                                                    <span class="role-badge role-env">
-                                                        <i class="fas fa-leaf"></i>
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:when>
-                                            </xsl:choose>
+                                            <span class="role-badge role-admin">
+                                                <i class="fas fa-user"></i>
+                                                <xsl:value-of select="@department"/>
+                                            </span>
+                                            <span class="status-badge status-{translate(@status,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')}">
+                                                <span class="status-dot"></span>
+                                                <xsl:value-of select="@status"/>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -1778,12 +1735,6 @@
                                             <xsl:text> today</xsl:text>
                                         </span>
                                     </div>
-                                    <div class="user-detail">
-                                        <span class="detail-label">Access:</span>
-                                        <span class="detail-value" style="color: var(--primary-light);">
-                                            <xsl:value-of select="permissions"/>
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </xsl:for-each>
@@ -1799,60 +1750,28 @@
                                 <tr>
                                     <th>User ID</th>
                                     <th>Name</th>
-                                    <th>Role</th>
+                                    <th>Status</th>
                                     <th>Department</th>
                                     <th>Email</th>
                                     <th>Last Activity</th>
-                                    <th>Permissions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <xsl:for-each select="/smartCity/users/user">
-                                    <tr onclick="showUserDetails('{@id}')" style="cursor: pointer;">
+                                    <xsl:sort select="name"/>
+                                    <tr>
                                         <td><xsl:value-of select="@id"/></td>
                                         <td><strong><xsl:value-of select="name"/></strong></td>
                                         <td>
-                                            <xsl:choose>
-                                                <xsl:when test="@role='Admin'">
-                                                    <span class="role-badge role-admin">
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:when>
-                                                <xsl:when test="@role='SecurityOfficer'">
-                                                    <span class="role-badge role-security">
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:when>
-                                                <xsl:when test="@role='CityManager'">
-                                                    <span class="role-badge role-manager">
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:when>
-                                                <xsl:when test="@role='EnvironmentalOfficer'">
-                                                    <span class="role-badge role-env">
-                                                        <xsl:value-of select="@role"/>
-                                                    </span>
-                                                </xsl:when>
-                                            </xsl:choose>
+                                            <span class="status-badge status-{translate(@status,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')}">
+                                                <span class="status-dot"></span>
+                                                <xsl:value-of select="@status"/>
+                                            </span>
                                         </td>
                                         <td><xsl:value-of select="@department"/></td>
                                         <td><xsl:value-of select="email"/></td>
                                         <td>
                                             <xsl:value-of select="substring(lastLogin, 12, 5)"/>
-                                        </td>
-                                        <td>
-                                            <span class="status-badge status-low">
-                                                <xsl:choose>
-                                                    <xsl:when test="permissions='full'">
-                                                        <span class="status-dot"></span>
-                                                        Full Access
-                                                    </xsl:when>
-                                                    <xsl:otherwise>
-                                                        <span class="status-dot" style="background: var(--warning);"></span>
-                                                        Limited
-                                                    </xsl:otherwise>
-                                                </xsl:choose>
-                                            </span>
                                         </td>
                                     </tr>
                                 </xsl:for-each>
@@ -2020,7 +1939,7 @@
                             </div>
                             <div class="user-detail">
                                 <span class="detail-label">Hospital Beds Available</span>
-                                <span class="detail-value"><xsl:value-of select="/smartCity/services/hospital/@bedsAvailable"/></span>
+                                <span class="detail-value"><xsl:value-of select="sum(/smartCity/services/hospital/@bedsAvailable)"/></span>
                             </div>
                         </div>
                     </div>
@@ -2043,159 +1962,48 @@
             });
 
             // Add active class to clicked button
-            const activeBtn = event.currentTarget;
-            activeBtn.classList.add('active');
+            event.currentTarget.classList.add('active');
             
-            // Animate button
-            anime({
-                targets: activeBtn,
-                scale: [1, 1.05, 1],
-                duration: 400,
-                easing: 'easeInOutQuad'
-            });
-
-            // Show selected section with animation
-            const activeSection = document.getElementById(sectionId);
-            setTimeout(() => {
-                activeSection.classList.add('active');
-                anime({
-                    targets: activeSection,
-                    opacity: [0, 1],
-                    translateY: [20, 0],
-                    duration: 500,
-                    easing: 'easeOutCubic'
-                });
-            }, 100);
-
-            // Animate cards in section
-            setTimeout(() => {
-                anime({
-                    targets: activeSection.querySelectorAll('.dashboard-card, .kpi-card, .user-card, .quick-stat'),
-                    opacity: [0, 1],
-                    translateY: [15, 0],
-                    delay: anime.stagger(80, {start: 100}),
-                    duration: 500,
-                    easing: 'easeOutCubic'
-                });
-            }, 200);
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
         }
 
-        // Initialize animations
+        // Initialize animations when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            // Animate header elements
-            anime({
-                targets: '.city-logo',
-                rotate: [0, 360],
-                duration: 1500,
-                easing: 'easeInOutSine',
-                delay: 300
-            });
-
-            // Animate stat badges
-            anime({
-                targets: '.stat-badge',
-                opacity: [0, 1],
-                translateY: [15, 0],
-                delay: anime.stagger(150, {start: 500}),
-                duration: 600,
-                easing: 'easeOutBack'
-            });
-
-            // Animate quick stats
-            anime({
-                targets: '.quick-stat',
-                opacity: [0, 1],
-                translateY: [10, 0],
-                delay: anime.stagger(100, {start: 800}),
-                duration: 500,
-                easing: 'easeOutCubic'
-            });
-
-            // Initialize charts
-            initializeCharts();
-            
-            // Add click effects to cards
-            document.querySelectorAll('.dashboard-card, .kpi-card, .user-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    if (!e.target.closest('button')) {
-                        anime({
-                            targets: this,
-                            scale: [1, 0.98, 1],
-                            duration: 300,
-                            easing: 'easeInOutQuad'
-                        });
-                    }
+            // Animate progress bars
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
                 });
-            });
-        });
-
-        function initializeCharts() {
-            // Progress bar animations
-            anime({
-                targets: '.progress-fill',
-                width: (el) => {
-                    return el.style.width;
-                },
-                duration: 1500,
-                delay: anime.stagger(80, {start: 1000}),
-                easing: 'easeOutElastic(1, .6)'
-            });
-        }
-
-        // User details modal
-        function showUserDetails(userId) {
-            alert('User details for ' + userId + ' would open in a modal.');
-        }
-
-        // Real-time update simulation
-        function simulateUpdates() {
-            setInterval(() => {
-                // Animate pulse elements
-                anime({
-                    targets: '.pulse',
-                    scale: [1, 1.03, 1],
-                    duration: 800,
-                    easing: 'easeInOutQuad'
+            }, 500);
+            
+            // Add hover effects
+            document.querySelectorAll('.dashboard-card, .kpi-card, .user-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
                 });
                 
-                // Random update simulation
-                const randomStats = document.querySelectorAll('.quick-stat-value');
-                randomStats.forEach(stat => {
-                    if (Math.random() > 0.7) {
-                        anime({
-                            targets: stat,
-                            scale: [1, 1.1, 1],
-                            duration: 300,
-                            easing: 'easeInOutQuad'
-                        });
-                    }
-                });
-            }, 5000);
-        }
-
-        // Start simulation
-        simulateUpdates();
-
-        // Add hover effects
-        document.querySelectorAll('.dashboard-card, .kpi-card, .user-card, .quick-stat').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                anime({
-                    targets: card,
-                    scale: 1.02,
-                    duration: 200,
-                    easing: 'easeOutQuad'
-                });
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                anime({
-                    targets: card,
-                    scale: 1,
-                    duration: 200,
-                    easing: 'easeOutQuad'
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
                 });
             });
         });
+
+        // Real-time update simulation
+        setInterval(() => {
+            // Animate pulse elements
+            const pulseElements = document.querySelectorAll('.pulse');
+            pulseElements.forEach(el => {
+                el.style.opacity = '0.6';
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                }, 300);
+            });
+        }, 2000);
     </script>
 </body>
 </html>
