@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations>
+    <!-- Header -->
+    <translation key="dashboard_title">
+        <lang code="en">Smart City Dashboard • Real-time Monitoring System</lang>
+        <lang code="fr">Tableau de Bord Ville Intelligente • Surveillance en Temps Réel</lang>
+    </translation>
+    
+    <!-- Navigation -->
+    <translation key="overview">
+        <lang code="en">Overview</lang>
+        <lang code="fr">Vue d'ensemble</lang>
+    </translation>
+    
+    <translation key="traffic">
+        <lang code="en">Traffic</lang>
+        <lang code="fr">Trafic</lang>
+    </translation>
+    
+    <translation key="security">
+        <lang code="en">Security</lang>
+        <lang code="fr">Sécurité</lang>
+    </translation>
+    
+    <translation key="environment">
+        <lang code="en">Environment</lang>
+        <lang code="fr">Environnement</lang>
+    </translation>
+    
+    <translation key="services">
+        <lang code="en">Services</lang>
+        <lang code="fr">Services</lang>
+    </translation>
+    
+    <translation key="iot">
+        <lang code="en">IoT</lang>
+        <lang code="fr">IoT</lang>
+    </translation>
+    
+    <translation key="users">
+        <lang code="en">Users</lang>
+        <lang code="fr">Utilisateurs</lang>
+    </translation>
+    
+    <translation key="analytics">
+        <lang code="en">Analytics</lang>
+        <lang code="fr">Analytiques</lang>
+    </translation>
+    
+    <!-- Stats -->
+    <translation key="population">
+        <lang code="en">Population</lang>
+        <lang code="fr">Population</lang>
+    </translation>
+    
+    <translation key="version">
+        <lang code="en">Version</lang>
+        <lang code="fr">Version</lang>
+    </translation>
+    
+    <translation key="status">
+        <lang code="en">Status</lang>
+        <lang code="fr">Statut</lang>
+    </translation>
+    
+    <!-- Overview Section -->
+    <translation key="active_incidents">
+        <lang code="en">Active Incidents</lang>
+        <lang code="fr">Incidents Actifs</lang>
+    </translation>
+    
+    <translation key="iot_connected">
+        <lang code="en">IoT Connected</lang>
+        <lang code="fr">IoT Connectés</lang>
+    </translation>
+    
+    <translation key="air_quality">
+        <lang code="en">Air Quality</lang>
+        <lang code="fr">Qualité d'Air</lang>
+    </translation>
+    
+    <translation key="response_time">
+        <lang code="en">Response Time</lang>
+        <lang code="fr">Temps de Réponse</lang>
+    </translation>
+    
+    <translation key="city_health_score">
+        <lang code="en">City Health Score</lang>
+        <lang code="fr">Score Santé Ville</lang>
+    </translation>
+    
+    <translation key="requires_attention">
+        <lang code="en">Requires Attention</lang>
+        <lang code="fr">Nécessite Attention</lang>
+    </translation>
+    
+    <translation key="excellent_connection">
+        <lang code="en">Excellent Connection</lang>
+        <lang code="fr">Connexion Excellente</lang>
+    </translation>
+    
+    <translation key="environment_status">
+        <lang code="en">Environment Status</lang>
+        <lang code="fr">Statut Environnement</lang>
+    </translation>
+    
+    <translation key="recent_incidents">
+        <lang code="en">Recent Incidents</lang>
+        <lang code="fr">Incidents Récents</lang>
+    </translation>
+    
+    <translation key="view_all">
+        <lang code="en">View All</lang>
+        <lang code="fr">Voir Tout</lang>
+    </translation>
+    
+    <!-- Table Headers -->
+    <translation key="type">
+        <lang code="en">Type</lang>
+        <lang code="fr">Type</lang>
+    </translation>
+    
+    <translation key="severity">
+        <lang code="en">Severity</lang>
+        <lang code="fr">Sévérité</lang>
+    </translation>
+    
+    <translation key="zone">
+        <lang code="en">Zone</lang>
+        <lang code="fr">Zone</lang>
+    </translation>
+    
+    <translation key="status_label">
+        <lang code="en">Status</lang>
+        <lang code="fr">Statut</lang>
+    </translation>
+    
+    <translation key="time">
+        <lang code="en">Time</lang>
+        <lang code="fr">Heure</lang>
+    </translation>
+    
+    <translation key="response">
+        <lang code="en">Response</lang>
+        <lang code="fr">Réponse</lang>
+    </translation>
+    
+    <translation key="assigned_to">
+        <lang code="en">Assigned To</lang>
+        <lang code="fr">Assigné à</lang>
+    </translation>
+    
+    <!-- Status -->
+    <translation key="active">
+        <lang code="en">Active</lang>
+        <lang code="fr">Actif</lang>
+    </translation>
+    
+    <translation key="investigating">
+        <lang code="en">Investigating</lang>
+        <lang code="fr">Enquête</lang>
+    </translation>
+    
+    <translation key="resolved">
+        <lang code="en">Resolved</lang>
+        <lang code="fr">Résolu</lang>
+    </translation>
+    
+    <translation key="closed">
+        <lang code="en">Closed</lang>
+        <lang code="fr">Fermé</lang>
+    </translation>
+    
+    <translation key="pending">
+        <lang code="en">Pending</lang>
+        <lang code="fr">En attente</lang>
+    </translation>
+    
+    <!-- Traffic Section -->
+    <translation key="traffic_management">
+        <lang code="en">Traffic Management</lang>
+        <lang code="fr">Gestion du Trafic</lang>
+    </translation>
+    
+    <translation key="total_intersections">
+        <lang code="en">Total Intersections</lang>
+        <lang code="fr">Intersections Total</lang>
+    </translation>
+    
+    <translation key="average_speed">
+        <lang code="en">Average Speed</lang>
+        <lang code="fr">Vitesse Moyenne</lang>
+    </translation>
+    
+    <translation key="last_update">
+        <lang code="en">Last Update</lang>
+        <lang code="fr">Dernière Mise à Jour</lang>
+    </translation>
+    
+    <translation key="public_transport">
+        <lang code="en">Public Transport</lang>
+        <lang code="fr">Transport Public</lang>
+    </translation>
+    
+    <translation key="on_time">
+        <lang code="en">On Time</lang>
+        <lang code="fr">À l'Heure</lang>
+    </translation>
+    
+    <translation key="delayed">
+        <lang code="en">Delayed</lang>
+        <lang code="fr">Retardé</lang>
+    </translation>
+    
+    <translation key="passengers">
+        <lang code="en">Passengers</lang>
+        <lang code="fr">Passagers</lang>
+    </translation>
+    
+    <translation key="energy_status">
+        <lang code="en">Energy Status</lang>
+        <lang code="fr">Statut Énergie</lang>
+    </translation>
+    
+    <translation key="smart_grid_load">
+        <lang code="en">Smart Grid Load</lang>
+        <lang code="fr">Charge Réseau Intelligent</lang>
+    </translation>
+    
+    <translation key="power_plants">
+        <lang code="en">Power Plants</lang>
+        <lang code="fr">Centrales</lang>
+    </translation>
+    
+    <translation key="output">
+        <lang code="en">Output</lang>
+        <lang code="fr">Production</lang>
+    </translation>
+    
+    <translation key="efficiency">
+        <lang code="en">Efficiency</lang>
+        <lang code="fr">Efficacité</lang>
+    </translation>
+    
+    <!-- Security Section -->
+    <translation key="security_incidents">
+        <lang code="en">Security Incidents</lang>
+        <lang code="fr">Incidents de Sécurité</lang>
+    </translation>
+    
+    <translation key="total_incidents">
+        <lang code="en">Total Incidents</lang>
+        <lang code="fr">Total Incidents</lang>
+    </translation>
+    
+    <translation key="surveillance_system">
+        <lang code="en">Surveillance System</lang>
+        <lang code="fr">Système de Surveillance</lang>
+    </translation>
+    
+    <translation key="last_motion">
+        <lang code="en">Last Motion</lang>
+        <lang code="fr">Dernier Mouvement</lang>
+    </translation>
+    
+    <translation key="ai_detection">
+        <lang code="en">AI Detection</lang>
+        <lang code="fr">Détection IA</lang>
+    </translation>
+    
+    <!-- Environment Section -->
+    <translation key="air_quality_monitoring">
+        <lang code="en">Air Quality Monitoring</lang>
+        <lang code="fr">Surveillance Qualité d'Air</lang>
+    </translation>
+    
+    <translation key="current_weather">
+        <lang code="en">Current Weather</lang>
+        <lang code="fr">Météo Actuelle</lang>
+    </translation>
+    
+    <translation key="humidity">
+        <lang code="en">Humidity</lang>
+        <lang code="fr">Humidité</lang>
+    </translation>
+    
+    <translation key="wind">
+        <lang code="en">Wind</lang>
+        <lang code="fr">Vent</lang>
+    </translation>
+    
+    <translation key="tomorrow_forecast">
+        <lang code="en">Tomorrow's Forecast</lang>
+        <lang code="fr">Prévision Demain</lang>
+    </translation>
+    
+    <translation key="high">
+        <lang code="en">High</lang>
+        <lang code="fr">Max</lang>
+    </translation>
+    
+    <translation key="low">
+        <lang code="en">Low</lang>
+        <lang code="fr">Min</lang>
+    </translation>
+    
+    <translation key="waste_management">
+        <lang code="en">Waste Management</lang>
+        <lang code="fr">Gestion des Déchets</lang>
+    </translation>
+    
+    <translation key="recycling_rate">
+        <lang code="en">Recycling Rate</lang>
+        <lang code="fr">Taux de Recyclage</lang>
+    </translation>
+    
+    <translation key="smart_bins">
+        <lang code="en">Smart Bins</lang>
+        <lang code="fr">Poubelles Intelligentes</lang>
+    </translation>
+    
+    <translation key="fill_level">
+        <lang code="en">Fill Level</lang>
+        <lang code="fr">Niveau Remplissage</lang>
+    </translation>
+    
+    <translation key="next_collection">
+        <lang code="en">Next Collection</lang>
+        <lang code="fr">Prochaine Collecte</lang>
+    </translation>
+    
+    <!-- Services Section -->
+    <translation key="hospital_status">
+        <lang code="en">Hospital Status</lang>
+        <lang code="fr">Statut Hôpital</lang>
+    </translation>
+    
+    <translation key="total_beds_available">
+        <lang code="en">Total Beds Available</lang>
+        <lang code="fr">Total Lits Disponibles</lang>
+    </translation>
+    
+    <translation key="avg_waiting">
+        <lang code="en">Avg Waiting</lang>
+        <lang code="fr">Attente Moyenne</lang>
+    </translation>
+    
+    <translation key="all_hospitals">
+        <lang code="en">All Hospitals</lang>
+        <lang code="fr">Tous les Hôpitaux</lang>
+    </translation>
+    
+    <translation key="beds">
+        <lang code="en">Beds</lang>
+        <lang code="fr">Lits</lang>
+    </translation>
+    
+    <translation key="wait">
+        <lang code="en">Wait</lang>
+        <lang code="fr">Attente</lang>
+    </translation>
+    
+    <translation key="school_status">
+        <lang code="en">School Status</lang>
+        <lang code="fr">Statut Écoles</lang>
+    </translation>
+    
+    <translation key="students_present">
+        <lang code="en">Students Present</lang>
+        <lang code="fr">Étudiants Présents</lang>
+    </translation>
+    
+    <translation key="all_schools">
+        <lang code="en">All Schools</lang>
+        <lang code="fr">Toutes les Écoles</lang>
+    </translation>
+    
+    <translation key="public_wifi">
+        <lang code="en">Public WiFi</lang>
+        <lang code="fr">WiFi Public</lang>
+    </translation>
+    
+    <translation key="uptime">
+        <lang code="en">Uptime</lang>
+        <lang code="fr">Disponibilité</lang>
+    </translation>
+    
+    <translation key="access_points">
+        <lang code="en">Access Points</lang>
+        <lang code="fr">Points d'Accès</lang>
+    </translation>
+    
+    <translation key="active_connections">
+        <lang code="en">Active Connections</lang>
+        <lang code="fr">Connexions Actives</lang>
+    </translation>
+    
+    <!-- IoT Section -->
+    <translation key="iot_network_status">
+        <lang code="en">IoT Network Status</lang>
+        <lang code="fr">Statut Réseau IoT</lang>
+    </translation>
+    
+    <translation key="total_devices">
+        <lang code="en">Total Devices</lang>
+        <lang code="fr">Total Appareils</lang>
+    </translation>
+    
+    <translation key="connected">
+        <lang code="en">Connected</lang>
+        <lang code="fr">Connectés</lang>
+    </translation>
+    
+    <translation key="of_total">
+        <lang code="en">of total</lang>
+        <lang code="fr">du total</lang>
+    </translation>
+    
+    <!-- Users Section -->
+    <translation key="system_users">
+        <lang code="en">System Users</lang>
+        <lang code="fr">Utilisateurs Système</lang>
+    </translation>
+    
+    <translation key="total_users">
+        <lang code="en">Total Users</lang>
+        <lang code="fr">Total Utilisateurs</lang>
+    </translation>
+    
+    <translation key="active_now">
+        <lang code="en">Active Now</lang>
+        <lang code="fr">Actifs Maintenant</lang>
+    </translation>
+    
+    <translation key="user_details_table">
+        <lang code="en">User Details Table</lang>
+        <lang code="fr">Tableau Détails Utilisateurs</lang>
+    </translation>
+    
+    <translation key="user_id">
+        <lang code="en">User ID</lang>
+        <lang code="fr">ID Utilisateur</lang>
+    </translation>
+    
+    <translation key="name">
+        <lang code="en">Name</lang>
+        <lang code="fr">Nom</lang>
+    </translation>
+    
+    <translation key="department">
+        <lang code="en">Department</lang>
+        <lang code="fr">Département</lang>
+    </translation>
+    
+    <translation key="email">
+        <lang code="en">Email</lang>
+        <lang code="fr">Email</lang>
+    </translation>
+    
+    <translation key="last_activity">
+        <lang code="en">Last Activity</lang>
+        <lang code="fr">Dernière Activité</lang>
+    </translation>
+    
+    <!-- Analytics Section -->
+    <translation key="city_analytics_dashboard">
+        <lang code="en">City Analytics Dashboard</lang>
+        <lang code="fr">Tableau de Bord Analytiques Ville</lang>
+    </translation>
+    
+    <translation key="safety_index">
+        <lang code="en">Safety Index</lang>
+        <lang code="fr">Indice Sécurité</lang>
+    </translation>
+    
+    <translation key="sustainability_index">
+        <lang code="en">Sustainability Index</lang>
+        <lang code="fr">Indice Durabilité</lang>
+    </translation>
+    
+    <translation key="citizen_satisfaction">
+        <lang code="en">Citizen Satisfaction</lang>
+        <lang code="fr">Satisfaction Citoyens</lang>
+    </translation>
+    
+    <translation key="city_information">
+        <lang code="en">City Information</lang>
+        <lang code="fr">Informations Ville</lang>
+    </translation>
+    
+    <translation key="city_summary">
+        <lang code="en">City Summary</lang>
+        <lang code="fr">Résumé Ville</lang>
+    </translation>
+    
+    <translation key="total_incidents_today">
+        <lang code="en">Total Incidents Today</lang>
+        <lang code="fr">Total Incidents Aujourd'hui</lang>
+    </translation>
+    
+    <translation key="iot_connectivity">
+        <lang code="en">IoT Connectivity</lang>
+        <lang code="fr">Connectivité IoT</lang>
+    </translation>
+    
+    <translation key="public_transport_status">
+        <lang code="en">Public Transport Status</lang>
+        <lang code="fr">Statut Transport Public</lang>
+    </translation>
+    
+    <translation key="air_quality_sensors">
+        <lang code="en">Air Quality Sensors</lang>
+        <lang code="fr">Capteurs Qualité d'Air</lang>
+    </translation>
+    
+    <translation key="active_cameras">
+        <lang code="en">Active Cameras</lang>
+        <lang code="fr">Caméras Actives</lang>
+    </translation>
+    
+    <translation key="hospital_beds_available">
+        <lang code="en">Hospital Beds Available</lang>
+        <lang code="fr">Lits Hôpital Disponibles</lang>
+    </translation>
+</translations>
